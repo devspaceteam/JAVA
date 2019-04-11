@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MService.Reclamation.BE.ReclamationController">
+   <children>
+      <BorderPane fx:id="BPaneHH" prefHeight="460.0" prefWidth="814.0">
+         <center>
+            <Pane prefHeight="460.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Separator layoutX="-3.0" orientation="VERTICAL" prefHeight="460.0" prefWidth="5.0" />
+                  <Label fx:id="TypeList" layoutX="58.0" layoutY="14.0" prefHeight="35.0" prefWidth="114.0" text="-list " />
+                  <TableView fx:id="tableview" layoutX="7.0" layoutY="73.0" prefHeight="377.0" prefWidth="683.0" />
+               </children>
+            </Pane>
+         </center>
+         <left>
+            <Pane prefHeight="460.0" prefWidth="122.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="toutbtn" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" onAction="#toutaction" prefHeight="41.0" prefWidth="97.0" text="Tout" />
+                  <Button fx:id="nonlubtn" layoutX="10.0" layoutY="95.0" mnemonicParsing="false" onAction="#nonluaction" prefHeight="45.0" prefWidth="97.0" text="Non lu" />
+                  <Button fx:id="lubtn" layoutX="10.0" layoutY="140.0" mnemonicParsing="false" onAction="#luaction" prefHeight="44.0" prefWidth="98.0" text="Lu" />
+                  <Button disable="true" layoutX="-1.0" layoutY="205.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="124.0" text="Pour être banni" />
+                  <Button fx:id="importantbtn" layoutX="10.0" layoutY="244.0" mnemonicParsing="false" onAction="#importantaction" prefHeight="45.0" prefWidth="97.0" text="Important" />
+                  <Button disable="true" layoutY="307.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="123.0" text="Géré" />
+                  <Button fx:id="poubellebtn" layoutX="10.0" layoutY="354.0" mnemonicParsing="false" onAction="#oubelleaction" prefHeight="47.0" prefWidth="98.0" text="Poubelle" />
+                  <Label fx:id="newlbl" layoutX="14.0" layoutY="14.0" text="Label" />
+                  <Label fx:id="toutlbl" layoutX="93.0" layoutY="66.0" prefHeight="17.0" prefWidth="18.0" text="00" />
+                  <Label fx:id="nonlulbl" layoutX="93.0" layoutY="109.0" prefHeight="17.0" prefWidth="19.0" text="00" />
+                  <Label fx:id="lulbl" layoutX="94.0" layoutY="154.0" prefHeight="17.0" prefWidth="17.0" text="00" />
+                  <Label fx:id="importlbl" layoutX="94.0" layoutY="258.0" prefHeight="17.0" prefWidth="24.0" text="00" />
+                  <Label fx:id="poubellbl" layoutX="93.0" layoutY="369.0" text="00" />
+               </children>
+            </Pane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>
