@@ -13,7 +13,7 @@
    <children>
       <BorderPane fx:id="borderpane" prefHeight="686.0" prefWidth="1113.0">
          <center>
-            <Pane prefHeight="686.0" prefWidth="917.0" style="-fx-background-color: #73897d;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="686.0" prefWidth="917.0" style="-fx-background-color: #c2cec7;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="637.0" fitWidth="879.0" layoutX="52.0" layoutY="21.0" opacity="0.99" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -23,7 +23,7 @@
                </children></Pane>
          </center>
          <left>
-            <Pane prefHeight="686.0" prefWidth="188.0" style="-fx-background-color: #73897d;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="686.0" prefWidth="188.0" style="-fx-background-color: #c2cec7;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="140.0" fitWidth="177.0" layoutX="16.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
