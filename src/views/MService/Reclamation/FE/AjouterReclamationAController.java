@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import techniques.BadWords;
 import techniques.DateConverter;
@@ -41,8 +42,6 @@ public class AjouterReclamationAController implements Initializable {
 private CrudReclamation CR=new CrudReclamation();
     @FXML
     private BorderPane RPane;
-    @FXML
-    private Button retour;
 
 
     
@@ -87,15 +86,17 @@ private CrudReclamation CR=new CrudReclamation();
         RPane.setCenter(root);
     }
 
-    @FXML
-    private void retourAction(ActionEvent event) {
-        LooadUI("Reclamation");
-    }
+  
     private void alert(String un, String deux) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Error");
         alert.setHeaderText(un);
         alert.setContentText(deux);
         alert.show();
+    }
+
+    @FXML
+    private void retourAction(MouseEvent event) {
+        LooadUI("Reclamation");
     }
 }

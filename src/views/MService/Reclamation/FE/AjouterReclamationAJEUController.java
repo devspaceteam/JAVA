@@ -66,8 +66,6 @@ public class AjouterReclamationAJEUController implements Initializable {
     private static String t;
     @FXML
     private BorderPane RPane;
-    @FXML
-    private Button returnbtn;
     private CrudUser cu =new CrudUser();
 
     /**
@@ -166,8 +164,9 @@ public class AjouterReclamationAJEUController implements Initializable {
         alert.show();
     }
 
+    
     @FXML
-    private void retouraction(ActionEvent event) {
-        LooadUI("Reclamation");
+    private void retouraction(MouseEvent event) {
+         LooadUI("Reclamation");
     }
 }

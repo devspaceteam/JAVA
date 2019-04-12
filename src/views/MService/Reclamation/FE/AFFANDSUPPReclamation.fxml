@@ -9,23 +9,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MService.Reclamation.FE.AFFANDSUPPReclamationController">
+<AnchorPane id="AnchorPane" prefHeight="686.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MService.Reclamation.FE.AFFANDSUPPReclamationController">
    <children>
-      <BorderPane fx:id="RPane" prefHeight="460.0" prefWidth="800.0">
+      <BorderPane fx:id="RPane" prefHeight="686.0" prefWidth="917.0" style="-fx-background-color: #f4fcf5;">
          <center>
             <Pane prefHeight="245.0" prefWidth="264.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="95.0" fitWidth="365.0" layoutX="216.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="181.0" fitWidth="499.0" layoutX="255.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../other/img/Ten-Steps-to-Giving-Your-Designer-Better-Feedback-01.png" />
+                        <Image url="@../../../../other/img/Ten-Steps-to-Giving-Your-Designer-Better-Feedback-01.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="Supprimbtn" layoutX="704.0" layoutY="274.0" mnemonicParsing="false" onAction="#SupprimerR" prefHeight="46.0" prefWidth="82.0" text="Supprimer" />
-                  <TableView fx:id="ListReclamation" layoutX="27.0" layoutY="167.0" prefHeight="200.0" prefWidth="660.0" />
-                  <Button fx:id="Modifierbtn" layoutX="704.0" layoutY="212.0" mnemonicParsing="false" onAction="#ModifierR" prefHeight="46.0" prefWidth="82.0" text="Modifier" />
-                  <Label layoutX="40.0" layoutY="136.0" text="Reclamation Consernant" />
-                  <ComboBox fx:id="TypeRecSearch" layoutX="216.0" layoutY="132.0" onAction="#SearchByType" prefWidth="150.0" />
+                  <Button fx:id="Supprimbtn" layoutX="759.0" layoutY="459.0" mnemonicParsing="false" onAction="#SupprimerR" prefHeight="46.0" prefWidth="102.0" style="-fx-background-color: #f79eab;" text="Supprimer" />
+                  <TableView fx:id="ListReclamation" layoutX="25.0" layoutY="285.0" prefHeight="351.0" prefWidth="707.0" />
+                  <Button fx:id="Modifierbtn" layoutX="757.0" layoutY="397.0" mnemonicParsing="false" onAction="#ModifierR" prefHeight="46.0" prefWidth="104.0" style="-fx-background-color: #a5dfff;" text="Modifier" />
+                  <Label layoutX="97.0" layoutY="204.0" text="Reclamation Consernant">
+                     <font>
+                        <Font name="Baskerville Old Face" size="25.0" />
+                     </font></Label>
+                  <ComboBox fx:id="TypeRecSearch" layoutX="403.0" layoutY="207.0" onAction="#SearchByType" prefWidth="150.0" style="-fx-background-color: #f4fcf5; -fx-border-color: black;" />
                </children>
             </Pane>
          </center>

@@ -155,4 +155,9 @@ private CrudReclamation CR=new CrudReclamation();
         alert.setContentText(deux);
         alert.show();
     }
+
+    @FXML
+    private void retourimg(MouseEvent event) {
+        LooadUI("AFFANDSUPPReclamation");
+    }
 }

@@ -9,22 +9,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MService.Reclamation.FE.ModifierReclamationAController">
+<AnchorPane id="AnchorPane" prefHeight="686.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MService.Reclamation.FE.ModifierReclamationAController">
    <children>
-      <BorderPane fx:id="RPane" prefHeight="460.0" prefWidth="800.0">
+      <BorderPane fx:id="RPane" prefHeight="686.0" prefWidth="917.0" style="-fx-background-color: #f4fcf5;">
          <center>
             <Pane prefHeight="460.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="95.0" fitWidth="344.0" layoutX="210.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="181.0" fitWidth="499.0" layoutX="210.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../other/img/Ten-Steps-to-Giving-Your-Designer-Better-Feedback-01.png" />
+                        <Image url="@../../../../other/img/Ten-Steps-to-Giving-Your-Designer-Better-Feedback-01.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="Sujet" layoutX="187.0" layoutY="190.0" promptText="Sujet" />
-                  <TextArea fx:id="Description" layoutX="187.0" layoutY="230.0" prefHeight="200.0" prefWidth="506.0" promptText="Description" />
-                  <Label layoutX="228.0" layoutY="150.0" text="Autre Reclamation" />
-                  <Button fx:id="SubmitButton" layoutX="717.0" layoutY="305.0" mnemonicParsing="false" onAction="#ModifierR" prefHeight="53.0" prefWidth="52.0" text="OK" />
+                  <TextField fx:id="Sujet" layoutX="111.0" layoutY="299.0" promptText="Sujet" style="-fx-background-color: #f4fcf5; -fx-border-color: black;" />
+                  <TextArea fx:id="Description" layoutX="111.0" layoutY="384.0" prefHeight="216.0" prefWidth="557.0" promptText="Description" style="-fx-background-color: #f4fcf5; -fx-border-color: black;" />
+                  <Label layoutX="227.0" layoutY="220.0" text="Autre Reclamation">
+                     <font>
+                        <Font name="Baskerville Old Face" size="25.0" />
+                     </font></Label>
+                  <Button fx:id="SubmitButton" layoutX="746.0" layoutY="462.0" mnemonicParsing="false" onAction="#ModifierR" prefHeight="59.0" prefWidth="88.0" style="-fx-background-color: #a5dfff;" text="modifier" />
+                  <ImageView fitHeight="44.0" fitWidth="52.0" layoutX="54.0" layoutY="56.0" onMouseClicked="#retourimg" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../other/img/left-arrow.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </center>
