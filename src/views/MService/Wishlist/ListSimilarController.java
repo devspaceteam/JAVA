@@ -5,6 +5,7 @@
  */
 package views.MService.Wishlist;
 
+import com.jfoenix.controls.JFXButton;
 import crud.MGestionUtilisateurs.CrudUser;
 import crud.MService.Wishlist.CrudWishlist;
 import entities.MProduit.Produit;
@@ -38,14 +39,15 @@ public class ListSimilarController implements Initializable {
     private Label NomProduit;
     @FXML
     private Label vendeurproduit;
-    @FXML
-    private Button ajouterwishlistbtn;
+    
     private CrudWishlist CW=new CrudWishlist();
     private static Wishlist w;
     private static Produit p;
     public static BorderPane HomeBorderrrr;
     private BorderPane HomeBorder;
     private CrudUser cu =new CrudUser();
+    @FXML
+    private JFXButton ajouterwishlistbtn;
 
     /**
      * Initializes the controller class.
@@ -61,9 +63,18 @@ public class ListSimilarController implements Initializable {
     @FXML
     private void ajoutbtn(ActionEvent event) {
         CW.ajouterWishlist(p.getId());
+        alert("Wishlist","produit ajouter au wishlist avec succes");
         LooadUI("SimilarList",HomeBorder);
         
         
+    }
+    private void alert(String un,String deux)
+    {
+        Alert alert = new Alert( Alert.AlertType.INFORMATION);
+        alert.setTitle("ajout");
+        alert.setHeaderText(un);      
+        alert.setContentText(deux);
+        alert.show();
     }
     public static void setProduitpSimilarWishlistw(Produit pp,Wishlist ww)
     {

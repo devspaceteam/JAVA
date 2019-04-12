@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
@@ -44,9 +45,9 @@ private final ObservableList<Produit> data=FXCollections.observableArrayList();
     private BorderPane HomeBorder;
     private static Produit ppp;
     @FXML
-    private Button Return;
-    @FXML
     private TextField Searchfield;
+    @FXML
+    private ImageView backimg;
     /**
      * Initializes the controller class.
      */
@@ -113,16 +114,16 @@ private final ObservableList<Produit> data=FXCollections.observableArrayList();
         x.setCenter(root);
     }
 
-    @FXML
-    private void Returnbtn(ActionEvent event) {
-        LooadUI("Wishlist",HomeBorder);
-        
-    }
     
     public static void setProduitpWishlistw(Produit pp)
     {
         ppp=pp;
        
+    }
+
+    @FXML
+    private void backaction(MouseEvent event) {
+         LooadUI("Wishlist",HomeBorder);
     }
     
 }

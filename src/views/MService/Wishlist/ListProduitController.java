@@ -5,6 +5,8 @@
  */
 package views.MService.Wishlist;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import crud.MGestionUtilisateurs.CrudUser;
 import crud.MService.Wishlist.CrudWishlist;
 import entities.MProduit.Produit;
@@ -44,18 +46,22 @@ public class ListProduitController implements Initializable {
     private Label dateajoutproduit;
     @FXML
     private Label vendeurproduit;
-    @FXML
-    private Button ajoutaupanierbtn;
-    @FXML
-    private Button similarbtn;
-    @FXML
-    private Button supprimebtn;
+    
+     @FXML
+    private JFXButton similarbtn;
+   
+   
     private CrudWishlist CW=new CrudWishlist();
     private static Wishlist w;
     private static Produit p;
     public static BorderPane HomeBorderrrr;
     private BorderPane HomeBorder;
     private CrudUser cu =new CrudUser();
+    @FXML
+    private JFXButton supprimebtn;
+    @FXML
+    private JFXButton ajoutaupanierbtn;
+   
     /**
      * Initializes the controller class.
      */
