@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package crud.MGestionUtilisateurs;
+package Crud;
 
-import entities.MGestionUtilisateur.User;
-import entities.MProduit.Produit;
+import Entity.Produit;
+import Entity.User;
+import Interface.UserInterface;
+import Utility.MyConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import techniques.MyConnection;
 
 /**
  *
@@ -41,7 +42,7 @@ public class CrudUser {
             ste.setString(4, a.getEmail());
             ste.setInt(5, 1);
             ste.setString(6, a.getPassword());
-            ste.setString(7, a.getRoles());
+            ste.setString(7, a.getRole());
             ste.executeUpdate();
             System.out.println("User ajouté!");
         } catch (SQLException ex) {
@@ -68,14 +69,54 @@ public class CrudUser {
         try {
             PreparedStatement pst = MyConnection.getInstance().getCnx()
                     .prepareStatement(requete2);
-            pst.setString(1, a.getPassword());
-            pst.setString(2, a.getPassword());
+            pst.setString(1, a.getEmail());
+            pst.setString(2, a.getEmail());
             pst.setInt(3, id);
             pst.executeUpdate();
             System.out.println("E-mail changer avec succés !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public boolean testMail(String mail) {
+        List<String> list = new ArrayList();
+        String requete4 = "SELECT email FROM fos_user";
+        try {
+            Statement st2 = MyConnection.getInstance().getCnx()
+                    .createStatement();
+            ResultSet rs = st2.executeQuery(requete4);
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        if(list.contains(mail))
+            return true;
+        else
+            return false;
+       
+    }
+    
+    public boolean testUsername(String username) {
+        List<String> list = new ArrayList();
+        String requete4 = "SELECT username FROM fos_user";
+        try {
+            Statement st2 = MyConnection.getInstance().getCnx()
+                    .createStatement();
+            ResultSet rs = st2.executeQuery(requete4);
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        if(list.contains(username))
+            return true;
+        else
+            return false;
+       
     }
 
     public void changerInfo(User a, int id) {
@@ -110,12 +151,11 @@ public class CrudUser {
             User u = new User();
             u.setId(rs.getInt(1));
             u.setUsername(rs.getString(2));
-            u.setUsername_canonical(rs.getString(3));
+            u.setPassword(rs.getString(3));
             u.setEmail(rs.getString(4));
-            u.setEmail_canonical(rs.getString(5));
             String role = rs.getString(12);
             u.setLast_login(rs.getDate(9));
-            u.setNb_ban(rs.getInt(18));
+            // u.setNb_ban(rs.getInt(18));
             u.setEnabled(rs.getInt(6));
             u.setAbout(rs.getNString(13));
             u.setPhone_number(rs.getInt(14));
@@ -132,9 +172,6 @@ public class CrudUser {
             if (role.equals("a:1:{i:0;s:16:\"ROLE_AGRICULTEUR\";}")) {
                 role = "agriculteur";
             }
-            if (role.equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-                role = "admin";
-            }
             if (role.equals("a:0:{}")) {
                 role = "utilisateur";
             }
@@ -149,284 +186,7 @@ public class CrudUser {
         return null;
     }
 
-
-    public String testpasswordauthentification(String e) throws SQLException {
-        String request = "select password from fos_user where email=? ";
-        PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(request);
-        pst.setString(1, e);
-        ResultSet result = pst.executeQuery();
-        if (result.next()) {
-            return result.getString("password");
-        }
-        return "not ok";
-
-    }
-
-    public ArrayList<String> getUsersNameByType(String type) {
-        ArrayList<String> l = new ArrayList<>();
-        String ty = "";
-        if (type.equals("jardinier")) {
-            ty = "a:1:{i:0;s:14:\"ROLE_JARDINIER\";}";
-        }
-        if (type.equals("entreprise")) {
-            ty = "a:1:{i:0;s:15:\"ROLE_ENTREPRISE\";}";
-        }
-        if (type.equals("agriculteur")) {
-            ty = "a:1:{i:0;s:16:\"ROLE_AGRICULTEUR\";}";
-        }
-        if (type.equals("utilisateur")) {
-            ty = "a:0:{}";
-        }
-        try {
-
-            String requete4 = "Select * from fos_user  WHERE fos_user.id !=2 and roles='" + ty + "' ";
-
-            Statement st2 = MyConnection.getInstance().getCnx().createStatement();
-
-            ResultSet rs = st2.executeQuery(requete4);
-
-            while (rs.next()) {
-                l.add(rs.getString(2));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return l;
-    }
-    
-    public User getUserByName(String nom) {
-        User u = new User();
-        try {
-
-            String requete4 = "Select * from fos_user  WHERE fos_user.username= '" + nom + "' ";
-
-            Statement st2 = MyConnection.getInstance().getCnx().createStatement();
-
-            ResultSet rs = st2.executeQuery(requete4);
-
-            if (rs.next()) {
-                u.setId(rs.getInt(1));               
-                u.setUsername(rs.getString(2));
-                u.setUsername_canonical(rs.getString(3));
-                u.setEmail(rs.getString(4));
-                u.setEmail_canonical(rs.getString(5));
-                String role = rs.getString(12);
-                u.setLast_login(rs.getDate(9));
-                u.setNb_ban(rs.getInt(18));
-                u.setEnabled(rs.getInt(6));
-                u.setAbout(rs.getNString(13));
-                u.setPhone_number(rs.getInt(14));
-                u.setLocation(rs.getString(15));
-                u.setAddress(rs.getString(16));
-                u.setJob(rs.getString(17));
-
-                if (role.equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-                    role = "admin";
-                }
-                if (role.equals("a:1:{i:0;s:14:\"ROLE_JARDINIER\";}")) {
-                    role = "jardinier";
-                }
-                if (role.equals("a:1:{i:0;s:15:\"ROLE_ENTREPRISE\";}")) {
-                    role = "entreprise";
-                }
-                if (role.equals("a:1:{i:0;s:16:\"ROLE_AGRICULTEUR\";}")) {
-                    role = "agriculteur";
-                }
-                if (role.equals("a:0:{}")) {
-                    role = "utilisateur";
-                }
-
-                u.setRoles(role);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return u;
-    }
-
-    public User getUserById(int id){
-     User u = new User();
-        try {
-
-            String requete4="Select * from fos_user  WHERE fos_user.id="+id+""; 
-            Statement st2 = MyConnection.getInstance().getCnx().createStatement();
-
-            ResultSet rs = st2.executeQuery(requete4);
-
-            if (rs.next()) {
-                u.setId(rs.getInt(1));               
-                u.setUsername(rs.getString(2));
-                u.setUsername_canonical(rs.getString(3));
-                u.setEmail(rs.getString(4));
-                u.setEmail_canonical(rs.getString(5));
-                String role = rs.getString(12);
-                u.setLast_login(rs.getDate(9));
-                u.setNb_ban(rs.getInt(18));
-                u.setEnabled(rs.getInt(6));
-                u.setAbout(rs.getNString(13));
-                u.setPhone_number(rs.getInt(14));
-                u.setLocation(rs.getString(15));
-                u.setAddress(rs.getString(16));
-                u.setJob(rs.getString(17));
-
-                if (role.equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-                    role = "admin";
-                }
-                if (role.equals("a:1:{i:0;s:14:\"ROLE_JARDINIER\";}")) {
-                    role = "jardinier";
-                }
-                if (role.equals("a:1:{i:0;s:15:\"ROLE_ENTREPRISE\";}")) {
-                    role = "entreprise";
-                }
-                if (role.equals("a:1:{i:0;s:16:\"ROLE_AGRICULTEUR\";}")) {
-                    role = "agriculteur";
-                }
-                if (role.equals("a:0:{}")) {
-                    role = "utilisateur";
-                }
-
-                u.setRoles(role);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return u;   
-    }
-    
-    public List<User> getAllUserExceptAdmin() {
-        List<User> list = new ArrayList();
-        try {
-
-            String ss = "a:1:{i:0;s:10:\"ROLE_ADMIN\";}";
-            String requete4 = "Select * from fos_user  WHERE fos_user.roles != '" + ss + "' and fos_user.enabled=1 ";
-
-            Statement st2 = MyConnection.getInstance().getCnx().createStatement();
-
-            ResultSet rs = st2.executeQuery(requete4);
-
-            while (rs.next()) {
-                User u = new User();
-                u.setId(rs.getInt(1));
-                u.setUsername(rs.getString(2));
-                u.setUsername_canonical(rs.getString(3));
-                u.setEmail(rs.getString(4));
-                u.setEmail_canonical(rs.getString(5));
-                String role = rs.getString(12);
-                u.setLast_login(rs.getDate(9));
-                u.setNb_ban(rs.getInt(18));
-                u.setEnabled(rs.getInt(6));
-                u.setAbout(rs.getNString(13));
-                u.setPhone_number(rs.getInt(14));
-                u.setLocation(rs.getString(15));
-                u.setAddress(rs.getString(16));
-                u.setJob(rs.getString(17));
-
-                if (role.equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-                    role = "admin";
-                }
-                if (role.equals("a:1:{i:0;s:14:\"ROLE_JARDINIER\";}")) {
-                    role = "jardinier";
-                }
-                if (role.equals("a:1:{i:0;s:15:\"ROLE_ENTREPRISE\";}")) {
-                    role = "entreprise";
-                }
-                if (role.equals("a:1:{i:0;s:16:\"ROLE_AGRICULTEUR\";}")) {
-                    role = "agriculteur";
-                }
-                if (role.equals("a:0:{}")) {
-                    role = "utilisateur";
-                }
-
-                u.setRoles(role);
-                list.add(u);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return list;
-    }
-
-    public List<User> getAllBannedUserExceptAdmin() {
-        List<User> list = new ArrayList();
-        try {
-
-            String ss = "a:1:{i:0;s:10:\"ROLE_ADMIN\";}";
-            String requete4 = "Select * from fos_user  WHERE fos_user.roles != '" + ss + "' and fos_user.enabled=0 ";
-
-            Statement st2 = MyConnection.getInstance().getCnx().createStatement();
-
-            ResultSet rs = st2.executeQuery(requete4);
-
-            while (rs.next()) {
-                User u = new User();
-                u.setId(rs.getInt(1));
-                u.setUsername(rs.getString(2));
-                u.setUsername_canonical(rs.getString(3));
-                u.setEmail(rs.getString(4));
-                u.setEmail_canonical(rs.getString(5));
-                String role = rs.getString(12);
-                u.setLast_login(rs.getDate(9));
-                u.setNb_ban(rs.getInt(18));
-                u.setEnabled(rs.getInt(6));
-                u.setAbout(rs.getNString(13));
-                u.setPhone_number(rs.getInt(14));
-                u.setLocation(rs.getString(15));
-                u.setAddress(rs.getString(16));
-                u.setJob(rs.getString(17));
-
-                if (role.equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-                    role = "admin";
-                }
-                if (role.equals("a:1:{i:0;s:14:\"ROLE_JARDINIER\";}")) {
-                    role = "jardinier";
-                }
-                if (role.equals("a:1:{i:0;s:15:\"ROLE_ENTREPRISE\";}")) {
-                    role = "entreprise";
-                }
-                if (role.equals("a:1:{i:0;s:16:\"ROLE_AGRICULTEUR\";}")) {
-                    role = "agriculteur";
-                }
-                if (role.equals("a:0:{}")) {
-                    role = "utilisateur";
-                }
-
-                u.setRoles(role);
-                list.add(u);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return list;
-    }
-    
-    public User getUserProd(Produit prod)
-    {
-        User u=new User();
-        try {
-        
-        String requete4="Select * from fos_user  WHERE fos_user.id="+prod.getUser_id()+""; 
-           
-            Statement st2 = MyConnection.getInstance().getCnx().createStatement();
-            
-            ResultSet rs=st2.executeQuery(requete4);
-            
-            if(rs.next())
-            {                
-                u.setId(rs.getInt(1));
-                u.setUsername(rs.getString(2));
-                u.setUsername_canonical(rs.getString(3));
-                u.setEmail(rs.getString(4));               
-                u.setEmail_canonical(rs.getString(5));               
-            }                                    
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return u;
-    }
-    
-    //    public User authentification(String login, String password) throws SQLException {
+//    public User authentification(String login, String password) throws SQLException {
 //        User u = null;
 //        String mdp = "";
 //        String request = "select * from fos_user where username=? and password=? ";
@@ -447,4 +207,18 @@ public class CrudUser {
 //
 //        return u;
 //    }
+    public String testpasswordauthentification(String e) throws SQLException {
+        String request = "select password from fos_user where email=? ";
+        PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(request);
+        pst.setString(1, e);
+        ResultSet result = pst.executeQuery();
+        if (result.next()) {
+            return result.getString("password");
+        }
+        return "not ok";
+
+    }
+    
+    
+
 }
