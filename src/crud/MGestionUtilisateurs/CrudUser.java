@@ -138,24 +138,30 @@ public class CrudUser {
     }
 
     public User testauthentification(String e, String m) throws SQLException {
-        String request = "select * from fos_user where username=? and password=? ";
+       
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();        
+        String request = "select * from fos_user where username=? ";
 
         PreparedStatement ste = MyConnection.getInstance().getCnx().prepareStatement(request);
         ste.setString(1, e);
-        ste.setString(2, m);
+       
         ResultSet rs = ste.executeQuery();
         List<User> list = new ArrayList<>();
         if (!rs.next()) {
             System.out.println("imposiible de se connecter");//changer par affichage notification
-        } else {
+        } else if(passwordEncoder.matches(m,rs.getString(8)))
+        
+        {
+            
             User u = new User();
             u.setId(rs.getInt(1));
             u.setUsername(rs.getString(2));
-            u.setPassword(rs.getString(3));
+            u.setUsername_canonical(rs.getString(3));
             u.setEmail(rs.getString(4));
+            u.setEmail_canonical(rs.getString(5));
             String role = rs.getString(12);
             u.setLast_login(rs.getDate(9));
-            // u.setNb_ban(rs.getInt(18));
+            u.setNb_ban(rs.getInt(18));
             u.setEnabled(rs.getInt(6));
             u.setAbout(rs.getNString(13));
             u.setPhone_number(rs.getInt(14));
@@ -171,6 +177,9 @@ public class CrudUser {
             }
             if (role.equals("a:1:{i:0;s:16:\"ROLE_AGRICULTEUR\";}")) {
                 role = "agriculteur";
+            }
+            if (role.equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
+                role = "admin";
             }
             if (role.equals("a:0:{}")) {
                 role = "utilisateur";
