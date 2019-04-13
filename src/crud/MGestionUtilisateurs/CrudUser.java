@@ -139,7 +139,7 @@ public class CrudUser {
 
     public User testauthentification(String e, String m) throws SQLException {
        
-                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();        
+                        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();        
         String request = "select * from fos_user where username=? ";
 
         PreparedStatement ste = MyConnection.getInstance().getCnx().prepareStatement(request);
@@ -159,7 +159,7 @@ public class CrudUser {
             u.setUsername_canonical(rs.getString(3));
             u.setEmail(rs.getString(4));
             u.setEmail_canonical(rs.getString(5));
-            String role = rs.getString(12);
+            u.setRoles(rs.getString(12));
             u.setLast_login(rs.getDate(9));
             u.setNb_ban(rs.getInt(18));
             u.setEnabled(rs.getInt(6));
@@ -168,24 +168,6 @@ public class CrudUser {
             u.setLocation(rs.getString(15));
             u.setAddress(rs.getString(16));
             u.setJob(rs.getString(17));
-
-            if (role.equals("a:1:{i:0;s:14:\"ROLE_JARDINIER\";}")) {
-                role = "jardinier";
-            }
-            if (role.equals("a:1:{i:0;s:15:\"ROLE_ENTREPRISE\";}")) {
-                role = "entreprise";
-            }
-            if (role.equals("a:1:{i:0;s:16:\"ROLE_AGRICULTEUR\";}")) {
-                role = "agriculteur";
-            }
-            if (role.equals("a:1:{i:0;s:10:\"ROLE_ADMIN\";}")) {
-                role = "admin";
-            }
-            if (role.equals("a:0:{}")) {
-                role = "utilisateur";
-            }
-
-            u.setRoles(role);
 
             System.out.println("ok");
 
