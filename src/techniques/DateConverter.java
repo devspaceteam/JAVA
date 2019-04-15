@@ -73,5 +73,10 @@ public class  DateConverter {
         long difference =  d1.getTime()-d2.getTime();
 	   return  new Double((difference / (1000*60*60*24))).intValue();
     }
+	public static final LocalDate String_To_LocaDate(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
+    }
     
 }
