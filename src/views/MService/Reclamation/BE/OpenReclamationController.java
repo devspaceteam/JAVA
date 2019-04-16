@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import techniques.VOICE_RSS;
 
@@ -54,8 +55,6 @@ public class OpenReclamationController implements Initializable {
     public static Reclamation R ;
     @FXML
     private BorderPane BPaneHH;
-    @FXML
-    private Button backbtn;
     private CrudReclamation CR = new CrudReclamation();
     private CrudUser cu =new CrudUser();
     @FXML
@@ -87,10 +86,7 @@ public class OpenReclamationController implements Initializable {
         nameReclameeduser.setText(R.getUserToClaim());
     }    
 
-    @FXML
-    private void backaction(ActionEvent event) {
-        LooadUI("Reclamation");
-    }
+    
 
     @FXML
     private void importantAction(ActionEvent event) {
@@ -113,6 +109,11 @@ public class OpenReclamationController implements Initializable {
     @FXML
     private void readvoiceaction(ActionEvent event) {
         new VOICE_RSS(R.getDescription(), "fr");
+    }
+
+    @FXML
+    private void backaction(MouseEvent event) {
+         LooadUI("Reclamation");
     }
     
 }

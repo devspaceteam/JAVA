@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -32,8 +33,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import techniques.DateConverter;
+import techniques.Notif;
 
 /**
  * FXML Controller class
@@ -73,8 +76,8 @@ public class ReclamationController implements Initializable {
     private Label importlbl;
     @FXML
     private Label poubellbl;
-    public static BorderPane HomeBorderrrr;
-    private BorderPane HomeBorder;
+    public static Pane HomeBorderrrr;
+    private Pane HomeBorder;
 private CrudUser cu =new CrudUser();
     /**
      * Initializes the controller class.
@@ -84,6 +87,7 @@ private CrudUser cu =new CrudUser();
         setnumbers();
         HomeBorder=HomeBorderrrr;
         showall();
+        new Notif("INFO D'utilisation", "Cliquer sur le nom d'utilisateur pour ouvrire son profile", "fx");
         
     }
     
@@ -173,7 +177,7 @@ private CrudUser cu =new CrudUser();
 
             hh = new Label("" +cu.getUserById(x.getUser_id()).getUsername() );
             Rx.setSenderUser(hh);
-            Rx.getSenderUser().setTextFill(Color.web("#9999ff"));
+            Rx.getSenderUser().setTextFill(Color.web("#322e91"));
             Rx.getSenderUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -190,7 +194,7 @@ private CrudUser cu =new CrudUser();
             if(x.getUserToClaim().equals("NONE")) hh = new Label("");
             else    hh = new Label("" + x.getUserToClaim());
             Rx.setReclamedUser(hh);
-            Rx.getReclamedUser().setTextFill(Color.web("#b3b3ff"));
+            Rx.getReclamedUser().setTextFill(Color.web("#322e91"));
             Rx.getReclamedUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -206,7 +210,7 @@ private CrudUser cu =new CrudUser();
 
             hh = new Label("Important");
             Rx.setSetAs(hh);
-            Rx.getSetAs().setTextFill(Color.web("#ff704d"));
+            Rx.getSetAs().setTextFill(Color.web("#591e1e"));
             Rx.getSetAs().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -218,7 +222,7 @@ private CrudUser cu =new CrudUser();
             
             hh = new Label("Boubelle");
             Rx.setSendto(hh);
-            Rx.getSendto().setTextFill(Color.web("#ffb84d"));
+            Rx.getSendto().setTextFill(Color.web("#707027"));
             Rx.getSendto().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -340,7 +344,7 @@ private CrudUser cu =new CrudUser();
 
             hh = new Label("" +cu.getUserById(x.getUser_id()).getUsername() );
             Rx.setSenderUser(hh);
-            Rx.getSenderUser().setTextFill(Color.web("#9999ff"));
+            Rx.getSenderUser().setTextFill(Color.web("#322e91"));
             Rx.getSenderUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -357,7 +361,7 @@ private CrudUser cu =new CrudUser();
             if(x.getUserToClaim().equals("NONE")) hh = new Label("");
             else    hh = new Label("" + x.getUserToClaim());
             Rx.setReclamedUser(hh);
-            Rx.getReclamedUser().setTextFill(Color.web("#b3b3ff"));
+            Rx.getReclamedUser().setTextFill(Color.web("#322e91"));
             Rx.getReclamedUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -373,7 +377,7 @@ private CrudUser cu =new CrudUser();
 
             hh = new Label("Important");
             Rx.setSetAs(hh);
-            Rx.getSetAs().setTextFill(Color.web("#ff704d"));
+            Rx.getSetAs().setTextFill(Color.web("#591e1e"));
             Rx.getSetAs().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -385,7 +389,7 @@ private CrudUser cu =new CrudUser();
             
             hh = new Label("Boubelle");
             Rx.setSendto(hh);
-            Rx.getSendto().setTextFill(Color.web("#ffb84d"));
+            Rx.getSendto().setTextFill(Color.web("#707027"));
             Rx.getSendto().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -501,7 +505,7 @@ private CrudUser cu =new CrudUser();
 
             hh = new Label("" +cu.getUserById(x.getUser_id()).getUsername() );
             Rx.setSenderUser(hh);
-            Rx.getSenderUser().setTextFill(Color.web("#9999ff"));
+            Rx.getSenderUser().setTextFill(Color.web("#322e91"));
             Rx.getSenderUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -518,7 +522,7 @@ private CrudUser cu =new CrudUser();
             if(x.getUserToClaim().equals("NONE")) hh = new Label("");
             else    hh = new Label("" + x.getUserToClaim());
             Rx.setReclamedUser(hh);
-            Rx.getReclamedUser().setTextFill(Color.web("#b3b3ff"));
+            Rx.getReclamedUser().setTextFill(Color.web("#322e91"));
             Rx.getReclamedUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -534,7 +538,7 @@ private CrudUser cu =new CrudUser();
 
             hh = new Label("Important");
             Rx.setSetAs(hh);
-            Rx.getSetAs().setTextFill(Color.web("#ff704d"));
+            Rx.getSetAs().setTextFill(Color.web("#591e1e"));
             Rx.getSetAs().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -546,7 +550,7 @@ private CrudUser cu =new CrudUser();
             
             hh = new Label("Boubelle");
             Rx.setSendto(hh);
-            Rx.getSendto().setTextFill(Color.web("#ffb84d"));
+            Rx.getSendto().setTextFill(Color.web("#707027"));
             Rx.getSendto().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -663,7 +667,7 @@ private CrudUser cu =new CrudUser();
 
             hh = new Label("" +cu.getUserById(x.getUser_id()).getUsername() );
             Rx.setSenderUser(hh);
-            Rx.getSenderUser().setTextFill(Color.web("#9999ff"));
+            Rx.getSenderUser().setTextFill(Color.web("#322e91"));
             Rx.getSenderUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -680,7 +684,7 @@ private CrudUser cu =new CrudUser();
             if(x.getUserToClaim().equals("NONE")) hh = new Label("");
             else    hh = new Label("" + x.getUserToClaim());
             Rx.setReclamedUser(hh);
-            Rx.getReclamedUser().setTextFill(Color.web("#b3b3ff"));
+            Rx.getReclamedUser().setTextFill(Color.web("#322e91"));
             Rx.getReclamedUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -698,7 +702,7 @@ private CrudUser cu =new CrudUser();
             
             hh = new Label("Boubelle");
             Rx.setSendto(hh);
-            Rx.getSendto().setTextFill(Color.web("#ffb84d"));
+            Rx.getSendto().setTextFill(Color.web("#707027"));
             Rx.getSendto().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -815,7 +819,7 @@ private CrudUser cu =new CrudUser();
 
             hh = new Label("" +cu.getUserById(x.getUser_id()).getUsername() );
             Rx.setSenderUser(hh);
-            Rx.getSenderUser().setTextFill(Color.web("#9999ff"));
+            Rx.getSenderUser().setTextFill(Color.web("#322e91"));
             Rx.getSenderUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -832,7 +836,7 @@ private CrudUser cu =new CrudUser();
             if(x.getUserToClaim().equals("NONE")) hh = new Label("");
             else    hh = new Label("" + x.getUserToClaim());
             Rx.setReclamedUser(hh);
-            Rx.getReclamedUser().setTextFill(Color.web("#b3b3ff"));
+            Rx.getReclamedUser().setTextFill(Color.web("#322e91"));
             Rx.getReclamedUser().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -850,7 +854,7 @@ private CrudUser cu =new CrudUser();
             
             hh = new Label("Supprimer");
             Rx.setSendto(hh);
-            Rx.getSendto().setTextFill(Color.web("#ffb84d"));
+            Rx.getSendto().setTextFill(Color.web("#707027"));
             Rx.getSendto().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -922,13 +926,14 @@ private CrudUser cu =new CrudUser();
         
     }
 private  void LooadUI(String ui)
-    {
+    {   
+        HomeBorder.getChildren().clear();
         Parent root=null;
         try {
             root=FXMLLoader.load(getClass().getResource("/views/MService/Reclamation/BE/"+ui+".fxml"));
             
         } catch (IOException ex) {System.err.println(ex.getMessage());     }
-        HomeBorder.setCenter(root);
+        HomeBorder.getChildren().add(root); 
     }
     
     
