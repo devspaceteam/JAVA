@@ -11,6 +11,7 @@ import crud.MGestionUtilisateurs.CrudUser;
 import crud.MService.Wishlist.CrudWishlist;
 import entities.MProduit.Produit;
 import entities.MService.Wishlist.Wishlist;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -29,7 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import techniques.DateConverter;
-import views.HomeFEController;
+
 
 /**
  * FXML Controller class
@@ -68,11 +69,14 @@ public class ListProduitController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         HomeBorder=HomeBorderrrr;
-        ImageProduit.setImage(new Image("/other/img/"+p.getDevis_name1()));
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", p.getDevis_name1());
+        ImageProduit.setImage(new Image(file.toURI().toString()));
         NomProduit.setText(p.getNom());
         dateajoutproduit.setText(DateConverter.Date_To_String(w.getDate()));
         vendeurproduit.setText(cu.getUserProd(p).getUsername());
     }    
+    
+        
 
     @FXML
     private void ajoutpanieraction(ActionEvent event) {

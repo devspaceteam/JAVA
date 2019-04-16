@@ -108,7 +108,7 @@ public class WishlistController implements Initializable {
     private void OpenProduit(MouseEvent event) {
                 ListProduitController.HomeBorderrrr=HomeBorder;
                 Produit pro=Listview.getSelectionModel().getSelectedItems().get(0);
-               ListProduitController.setProduitpWishlistw(pro,CR.getWishProd(pro.getId()));
+               ListProduitController.setProduitpWishlistw(pro,CR.getWishProd(pro.getId_produit()));
                LooadUI("ListProduit");
         
     }

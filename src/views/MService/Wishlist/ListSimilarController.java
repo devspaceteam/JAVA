@@ -10,6 +10,7 @@ import crud.MGestionUtilisateurs.CrudUser;
 import crud.MService.Wishlist.CrudWishlist;
 import entities.MProduit.Produit;
 import entities.MService.Wishlist.Wishlist;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -55,14 +56,16 @@ public class ListSimilarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         HomeBorder=HomeBorderrrr;
-        ImageProduit.setImage(new Image("/other/img/"+p.getDevis_name1()));
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", p.getDevis_name1());
+        ImageProduit.setImage(new Image(file.toURI().toString()));
+        
         NomProduit.setText(p.getNom());
         vendeurproduit.setText(cu.getUserProd(p).getUsername());
     }    
 
     @FXML
     private void ajoutbtn(ActionEvent event) {
-        CW.ajouterWishlist(p.getId());
+        CW.ajouterWishlist(p.getId_produit());
         alert("Wishlist","produit ajouter au wishlist avec succes");
         LooadUI("SimilarList",HomeBorder);
         

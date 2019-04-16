@@ -98,9 +98,9 @@ private final ObservableList<Produit> data=FXCollections.observableArrayList();
     
     @FXML
     private void OpenProduit(MouseEvent event) {
-         ListSimilarController.HomeBorderrrr=HomeBorder;
+                ListSimilarController.HomeBorderrrr=HomeBorder;
                 Produit pro=SimilarView.getSelectionModel().getSelectedItems().get(0);
-               ListSimilarController.setProduitpSimilarWishlistw(pro,CR.getWishProd(pro.getId()));
+               ListSimilarController.setProduitpSimilarWishlistw(pro,CR.getWishProd(pro.getId_produit()));
                LooadUI("ListSimilar",SWPane);
     }
     
