@@ -62,6 +62,7 @@ public class CrudWishlist {
                     .createStatement();
             st.executeUpdate(requete);
             System.out.println("Produit Ajoutée");
+            alert("Wishlist","produit ajouté au wishlist avec succes");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
