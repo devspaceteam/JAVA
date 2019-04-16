@@ -103,7 +103,7 @@ public class BadWords {
         JSONArray msg = (JSONArray) jsonObject.get("bad");
             Iterator<String> iterator = msg.iterator();
             while (iterator.hasNext()) {
-                if(s.indexOf(iterator.next())>=0)
+                if(s.contains(iterator.next()))
                 return true;
             }
        

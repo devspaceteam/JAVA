@@ -86,11 +86,13 @@ public class Notification {
             {   
                 
                 i++;
-                if(rs.getString(6).equals("NONE"))
+                if(rs.getString(6).equals("NONE")){
                     new Notif(rs.getString(3),rs.getString(4), "windows");
-                else
+                }
+                else{
+                    System.out.println("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                     new Notif(rs.getString(3),rs.getString(6)+" A ete Reclame \n"+rs.getString(4), "windows");
-                              
+                }         
             } 
             if(i!=0)
                 if(i==1)new VOICE_RSS("une nouvelle réclamation", "fr");
