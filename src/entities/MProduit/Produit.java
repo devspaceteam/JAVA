@@ -5,58 +5,37 @@
  */
 package entities.MProduit;
 
-import java.util.Date;
-
 /**
  *
- * @author mahjoub
+ * @author Lazzem
  */
 public class Produit {
-    private int id;
-    private int user_id;
+
+    private int id_produit;
+    private int id_categorie;
+    private int id_user;
     private String nom;
     private String description;
-    private Double prix;
-    private int quantite;
+    private float prix;
     private String devis_name1;
     private String devis_name2;
     private String devis_name3;
-    private Date updated_at;
-    private int categorie_id;
+    private int quantite;
 
-    public Produit(int id, int user_id, String nom, String description, Double prix, int quantite, String devis_name1, String devis_name2, String devis_name3, Date updated_at, int categorie_id) {
-        this.id = id;
-        this.user_id = user_id;
+    public Produit(int id_produit, int id_categorie, int id_user, String nom, String description, float prix, String devis_name1, String devis_name2, String devis_name3, int quantite) {
+        this.id_produit = id_produit;
+        this.id_categorie = id_categorie;
+        this.id_user = id_user;
         this.nom = nom;
         this.description = description;
         this.prix = prix;
-        this.quantite = quantite;
         this.devis_name1 = devis_name1;
         this.devis_name2 = devis_name2;
         this.devis_name3 = devis_name3;
-        this.updated_at = updated_at;
-        this.categorie_id = categorie_id;
+        this.quantite = quantite;
     }
 
     public Produit() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-   
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
     }
 
     public String getNom() {
@@ -75,60 +54,68 @@ public class Produit {
         this.description = description;
     }
 
-    public Double getPrix() {
+    public float getPrix() {
         return prix;
     }
 
-    public void setPrix(Double prix) {
+    public void setPrix(float prix) {
         this.prix = prix;
-    }
-
-    public int getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
     }
 
     public String getDevis_name1() {
         return devis_name1;
     }
 
-    public void setDevis_name1(String devis_name1) {
-        this.devis_name1 = devis_name1;
-    }
-
     public String getDevis_name2() {
         return devis_name2;
-    }
-
-    public void setDevis_name2(String devis_name2) {
-        this.devis_name2 = devis_name2;
     }
 
     public String getDevis_name3() {
         return devis_name3;
     }
 
+    public void setDevis_name1(String devis_name1) {
+        this.devis_name1 = devis_name1;
+    }
+
+    public void setDevis_name2(String devis_name2) {
+        this.devis_name2 = devis_name2;
+    }
+
     public void setDevis_name3(String devis_name3) {
         this.devis_name3 = devis_name3;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public void setId_produit(int id_produit) {
+        this.id_produit = id_produit;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
 
-    public int getCategorie_id() {
-        return categorie_id;
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
     }
 
-    public void setCategorie_id(int categorie_id) {
-        this.categorie_id = categorie_id;
+    public int getId_produit() {
+        return id_produit;
     }
-    
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public int getId_categorie() {
+        return id_categorie;
+    }
+
+    public void setId_categorie(int id_categorie) {
+        this.id_categorie = id_categorie;
+    }
+   
 }
