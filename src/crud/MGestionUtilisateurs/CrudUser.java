@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Crud;
+package crud.MGestionUtilisateurs;
 
-import Entity.Produit;
-import Entity.User;
-import Interface.UserInterface;
-import Utility.MyConnection;
+import entities.MGestionUtilisateur.User;
+import entities.MProduit.Produit;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import techniques.BCryptPasswordEncoder;
+import techniques.DateConverter;
+import techniques.MyConnection;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  *
@@ -42,9 +46,9 @@ public class CrudUser {
             ste.setString(4, a.getEmail());
             ste.setInt(5, 1);
             ste.setString(6, a.getPassword());
-            ste.setString(7, a.getRole());
+            ste.setString(7, a.getRoles());
             ste.executeUpdate();
-            System.out.println("User ajouté!");
+            System.out.println("User ajoutÃ©!");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -58,7 +62,7 @@ public class CrudUser {
             pst.setString(1, a.getPassword());
             pst.setInt(2, id);
             pst.executeUpdate();
-            System.out.println("Mot de passe changer avec succés !");
+            System.out.println("Mot de passe changer avec succÃ©s !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -73,52 +77,25 @@ public class CrudUser {
             pst.setString(2, a.getEmail());
             pst.setInt(3, id);
             pst.executeUpdate();
-            System.out.println("E-mail changer avec succés !");
+            System.out.println("E-mail changer avec succÃ©s !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public boolean testMail(String mail) {
-        List<String> list = new ArrayList();
-        String requete4 = "SELECT email FROM fos_user";
+    public void updateLastLogin(int id) {
+        String requete2 = "UPDATE fos_user SET last_login=?  WHERE id=?";
         try {
-            Statement st2 = MyConnection.getInstance().getCnx()
-                    .createStatement();
-            ResultSet rs = st2.executeQuery(requete4);
-            while (rs.next()) {
-                list.add(rs.getString(1));
-            }            
+            PreparedStatement pst = MyConnection.getInstance().getCnx()
+                    .prepareStatement(requete2);
+            pst.setString(1, DateConverter.Date_Now_As_String());            
+            pst.setInt(2, id);
+            pst.executeUpdate();
+            System.out.println("date aujoud'hui updated");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        if(list.contains(mail))
-            return true;
-        else
-            return false;
-       
     }
-    
-    public boolean testUsername(String username) {
-        List<String> list = new ArrayList();
-        String requete4 = "SELECT username FROM fos_user";
-        try {
-            Statement st2 = MyConnection.getInstance().getCnx()
-                    .createStatement();
-            ResultSet rs = st2.executeQuery(requete4);
-            while (rs.next()) {
-                list.add(rs.getString(1));
-            }            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        if(list.contains(username))
-            return true;
-        else
-            return false;
-       
-    }
-
     public void changerInfo(User a, int id) {
         String requete2 = "UPDATE fos_user SET about=? , phone_number=? , location=? , address=? , job =? WHERE id=?";
         try {
@@ -131,28 +108,26 @@ public class CrudUser {
             pst.setString(5, a.getJob());
             pst.setInt(6, id);
             pst.executeUpdate();
-            System.out.println("Information changer avec succés !");
+            System.out.println("Information changer avec succÃ©s !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     public User testauthentification(String e, String m) throws SQLException {
-       
-                        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();        
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String request = "select * from fos_user where username=? ";
 
         PreparedStatement ste = MyConnection.getInstance().getCnx().prepareStatement(request);
         ste.setString(1, e);
-       
+
         ResultSet rs = ste.executeQuery();
         List<User> list = new ArrayList<>();
         if (!rs.next()) {
             System.out.println("imposiible de se connecter");//changer par affichage notification
-        } else if(passwordEncoder.matches(m,rs.getString(8)))
-        
-        {
-            
+        } else if (passwordEncoder.matches(m, rs.getString(8))) {
+
             User u = new User();
             u.setId(rs.getInt(1));
             u.setUsername(rs.getString(2));
@@ -163,6 +138,7 @@ public class CrudUser {
             u.setLast_login(rs.getDate(9));
             u.setNb_ban(rs.getInt(18));
             u.setEnabled(rs.getInt(6));
+            u.setPassword(rs.getString(8));
             u.setAbout(rs.getNString(13));
             u.setPhone_number(rs.getInt(14));
             u.setLocation(rs.getString(15));
@@ -177,27 +153,48 @@ public class CrudUser {
         return null;
     }
 
-//    public User authentification(String login, String password) throws SQLException {
-//        User u = null;
-//        String mdp = "";
-//        String request = "select * from fos_user where username=? and password=? ";
-//
-//        PreparedStatement statment = MyConnection.getInstance().getCnx().prepareStatement(request);
-//        ste.setString(1, login);
-//        //ste.setString(2, password);
-//        ResultSet rs = ste.executeQuery();
-//        //if(rs.getFetchSize()>0){
-//        while (rs.next()) {
-//            u = new User(rs.getInt("id"), rs.getString("username"), rs.getString("nom"), rs.getString("prenom"), rs.getString("roles"));
-//            mdp = rs.getString("password");
-//            int index = mdp.indexOf("{");
-//            if (!mdp.substring(0, index).equals(password)) {
-//                u = null;
-//            }
-//        }
-//
-//        return u;
-//    }
+    public boolean testUsername(String username) {
+        List<String> list = new ArrayList();
+        String requete4 = "SELECT username FROM fos_user";
+        try {
+            Statement st2 = MyConnection.getInstance().getCnx()
+                    .createStatement();
+            ResultSet rs = st2.executeQuery(requete4);
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        if (list.contains(username)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean testMail(String mail) {
+        List<String> list = new ArrayList();
+        String requete4 = "SELECT email FROM fos_user";
+        try {
+            Statement st2 = MyConnection.getInstance().getCnx()
+                    .createStatement();
+            ResultSet rs = st2.executeQuery(requete4);
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        if (list.contains(mail)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     public String testpasswordauthentification(String e) throws SQLException {
         String request = "select password from fos_user where email=? ";
         PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(request);
@@ -209,7 +206,7 @@ public class CrudUser {
         return "not ok";
 
     }
-    
+
     public ArrayList<String> getUsersNameByType(String type) {
         ArrayList<String> l = new ArrayList<>();
         String ty = "";
@@ -227,7 +224,7 @@ public class CrudUser {
         }
         try {
 
-            String requete4 = "Select * from fos_user  WHERE fos_user.id !=2 and roles='" + ty + "' ";
+            String requete4 = "Select * from fos_user  WHERE fos_user.id !=" + LoginController.us.getId() + " and roles='" + ty + "' ";
 
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
 
@@ -241,8 +238,8 @@ public class CrudUser {
         }
         return l;
     }
-	
-	public User getUserByName(String nom) {
+
+    public User getUserByName(String nom) {
         User u = new User();
         try {
 
@@ -253,7 +250,7 @@ public class CrudUser {
             ResultSet rs = st2.executeQuery(requete4);
 
             if (rs.next()) {
-                u.setId(rs.getInt(1));               
+                u.setId(rs.getInt(1));
                 u.setUsername(rs.getString(2));
                 u.setUsername_canonical(rs.getString(3));
                 u.setEmail(rs.getString(4));
@@ -292,17 +289,17 @@ public class CrudUser {
         return u;
     }
 
-    public User getUserById(int id){
-     User u = new User();
+    public User getUserById(int id) {
+        User u = new User();
         try {
 
-            String requete4="Select * from fos_user  WHERE fos_user.id="+id+""; 
+            String requete4 = "Select * from fos_user  WHERE fos_user.id=" + id + "";
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
 
             ResultSet rs = st2.executeQuery(requete4);
 
             if (rs.next()) {
-                u.setId(rs.getInt(1));               
+                u.setId(rs.getInt(1));
                 u.setUsername(rs.getString(2));
                 u.setUsername_canonical(rs.getString(3));
                 u.setEmail(rs.getString(4));
@@ -338,9 +335,9 @@ public class CrudUser {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return u;   
+        return u;
     }
-    
+
     public List<User> getAllUserExceptAdmin() {
         List<User> list = new ArrayList();
         try {
@@ -448,30 +445,49 @@ public class CrudUser {
 
         return list;
     }
-    
-    public User getUserProd(Produit prod)
-    {
-        User u=new User();
+
+    public User getUserProd(Produit prod) {
+        User u = new User();
         try {
-        
-        String requete4="Select * from fos_user  WHERE fos_user.id="+prod.getUser_id()+""; 
-           
+
+            String requete4 = "Select * from fos_user  WHERE fos_user.id=" + prod.getId_user() + "";
+
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
-            
-            ResultSet rs=st2.executeQuery(requete4);
-            
-            if(rs.next())
-            {                
+
+            ResultSet rs = st2.executeQuery(requete4);
+
+            if (rs.next()) {
                 u.setId(rs.getInt(1));
                 u.setUsername(rs.getString(2));
                 u.setUsername_canonical(rs.getString(3));
-                u.setEmail(rs.getString(4));               
-                u.setEmail_canonical(rs.getString(5));               
-            }                                    
+                u.setEmail(rs.getString(4));
+                u.setEmail_canonical(rs.getString(5));
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return u;
     }
 
+    //    public User authentification(String login, String password) throws SQLException {
+//        User u = null;
+//        String mdp = "";
+//        String request = "select * from fos_user where username=? and password=? ";
+//
+//        PreparedStatement statment = MyConnection.getInstance().getCnx().prepareStatement(request);
+//        ste.setString(1, login);
+//        //ste.setString(2, password);
+//        ResultSet rs = ste.executeQuery();
+//        //if(rs.getFetchSize()>0){
+//        while (rs.next()) {
+//            u = new User(rs.getInt("id"), rs.getString("username"), rs.getString("nom"), rs.getString("prenom"), rs.getString("roles"));
+//            mdp = rs.getString("password");
+//            int index = mdp.indexOf("{");
+//            if (!mdp.substring(0, index).equals(password)) {
+//                u = null;
+//            }
+//        }
+//
+//        return u;
+//    }
 }
