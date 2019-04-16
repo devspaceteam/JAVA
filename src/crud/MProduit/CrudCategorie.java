@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Crud;
+package crud.MProduit;
 
-import Entity.Categorie;
-import Utility.MyConnection;
+import techniques.MyConnection;
+import entities.MProduit.Categorie;
+import entities.MProduit.Produit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

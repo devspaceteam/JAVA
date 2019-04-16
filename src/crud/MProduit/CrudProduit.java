@@ -3,18 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Crud;
+package crud.MProduit;
 
-import Entity.Produit;
-import Utility.MyConnection;
+import techniques.MyConnection;
+import entities.MProduit.Categorie;
+import entities.MProduit.Produit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  *
@@ -164,6 +168,35 @@ public class CrudProduit {
             System.out.println(ex.getMessage());
         }
         return list;
+    }
+        
+        public  Map<Categorie, Integer> getNbrProduitsParCategorie() {
+            CrudCategorie cc = new CrudCategorie();
+        List<Categorie> categories = cc.AfficherCategorie();
+        Map<Categorie, Integer> result = new HashMap<>();
+        for (Categorie c : categories) {
+            result.put(c, getNbrProduitsParCat(c));
+        }
+        return result;
+    }
+        
+        public Integer getNbrProduitsParCat(Categorie c) {
+        try {
+            String query = "SELECT COUNT(*) AS NBR FROM produit WHERE categorie_id = ?";
+            PreparedStatement pst = MyConnection.getInstance().getCnx()
+                    .prepareStatement(query);
+            pst.setInt(1, c.getId_categorie());
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudProduit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }
