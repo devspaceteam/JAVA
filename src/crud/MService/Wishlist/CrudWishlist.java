@@ -17,6 +17,7 @@ import java.util.List;
 import javafx.scene.control.Alert;
 import techniques.DateConverter;
 import techniques.MyConnection;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  *
@@ -30,7 +31,7 @@ public class CrudWishlist {
     {
         try {
         
-            String requete4="Select * from wishlist  WHERE wishlist.produit_id="+idprod+" and wishlist.user_id =2";      
+            String requete4="Select * from wishlist  WHERE wishlist.produit_id="+idprod+" and wishlist.user_id ="+LoginController.us.getId()+"";      
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
             
             ResultSet rs=st2.executeQuery(requete4);
@@ -88,7 +89,7 @@ public class CrudWishlist {
             PreparedStatement pst = MyConnection.getInstance().getCnx()
                     .prepareStatement(requete3);
             pst.setInt(1,id);
-            pst.setInt(2,2);
+            pst.setInt(2,LoginController.us.getId());
             
             pst.executeUpdate();
             
@@ -104,7 +105,7 @@ public class CrudWishlist {
         List<Produit> myList=new ArrayList();
         try {
         
-        String requete4="Select * from produit where  produit.categorie_id="+ppp.getCategorie_id()+"  and produit.id NOT IN(select produit_id from wishlist where wishlist.user_id = 2)";      
+        String requete4="Select * from produit where  produit.categorie_id="+ppp.getId_categorie()+"  and produit.id NOT IN(select produit_id from wishlist where wishlist.user_id = "+LoginController.us.getId()+")";      
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
             
             ResultSet rs=st2.executeQuery(requete4);
@@ -112,14 +113,14 @@ public class CrudWishlist {
             while(rs.next())
             {
                 Produit p=new Produit();
-                p.setId(rs.getInt(1));
-                p.setUser_id(rs.getInt(2));
+                p.setId_produit(rs.getInt(1));
+                p.setId_user(rs.getInt(2));
                 p.setNom(rs.getString(3));
                 p.setDescription(rs.getString(4));
-                p.setPrix(rs.getDouble(5));
+                p.setPrix(rs.getFloat(5));
                 p.setQuantite(rs.getInt(6));
                 p.setDevis_name1(rs.getString(7));
-                p.setCategorie_id(rs.getInt(11));
+                p.setId_categorie(rs.getInt(11));
                 myList.add(p);
                 
             }                                    
@@ -134,7 +135,7 @@ public class CrudWishlist {
         List<Wishlist> myList=new ArrayList();
         try {
         
-        String requete4="Select * from wishlist where wishlist.user_id =2";      
+        String requete4="Select * from wishlist where wishlist.user_id ="+LoginController.us.getId()+"";      
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
             
             ResultSet rs=st2.executeQuery(requete4);
@@ -166,16 +167,17 @@ public class CrudWishlist {
             ResultSet rs=st2.executeQuery(requete4);
             
             while(rs.next())
-            {                
-                p.setId(rs.getInt(1));
-                p.setUser_id(rs.getInt(2));
+            {  
+                 p.setId_produit(rs.getInt(1));
+                p.setId_user(rs.getInt(2));
                 p.setNom(rs.getString(3));
                 p.setDescription(rs.getString(4));
-                p.setPrix(rs.getDouble(5));
+                p.setPrix(rs.getFloat(5));
                 p.setQuantite(rs.getInt(6));
                 p.setDevis_name1(rs.getString(7));
-                p.setCategorie_id(rs.getInt(11));
+                p.setId_categorie(rs.getInt(11));
                 
+               
                 
             }                                    
         } catch (SQLException ex) {
@@ -189,7 +191,7 @@ public class CrudWishlist {
         Wishlist w=new Wishlist();
         try {
         
-        String requete4="Select * from wishlist  WHERE wishlist.produit_id="+idProd+" and wishlist.user_id =2"; 
+        String requete4="Select * from wishlist  WHERE wishlist.produit_id="+idProd+" and wishlist.user_id ="+LoginController.us.getId()+""; 
            
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
             
