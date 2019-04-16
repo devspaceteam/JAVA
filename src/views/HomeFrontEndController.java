@@ -8,16 +8,26 @@ package views;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import techniques.Notif;
+import views.MCommunication.AfficheBlogController;
+import views.MGestionUtilisateur.LoginController;
+import views.MService.Reclamation.FE.ReclamationController;
 import views.MService.Wishlist.WishlistController;
 
 /**
@@ -68,15 +78,26 @@ public class HomeFrontEndController implements Initializable {
     @FXML
     private Label panierlbl;
     @FXML
-    private BorderPane borderpane;
+    public BorderPane borderpane;
+    @FXML
+    private Pane panedhash;
+    @FXML
+    private Pane paneavis;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        if (LoginController.us.getRoles().equals("a:0:{}")) {
+            dashlbl.setText("Profile");
+
+        }
+        if (LoginController.us.getRoles().contains("ROLE_ADMIN")) {
+            paneavis.setVisible(false);
+
+        }
+    }
 
     @FXML
     private void dashbordexit(MouseEvent event) {
@@ -86,7 +107,7 @@ public class HomeFrontEndController implements Initializable {
     @FXML
     private void dashbordentred(MouseEvent event) {
         imgdhash.setImage(new Image("/other/img/HomeIcon/admin1.png"));
-        
+
     }
 
     @FXML
@@ -116,7 +137,7 @@ public class HomeFrontEndController implements Initializable {
 
     @FXML
     private void evenemtionentred(MouseEvent event) {
-    imgevenement.setImage(new Image("/other/img/HomeIcon/evenement1.png"));
+        imgevenement.setImage(new Image("/other/img/HomeIcon/evenement1.png"));
     }
 
     @FXML
@@ -191,6 +212,39 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#000000"));
         wishlistlbl.setTextFill(Color.web("#000000"));
         panierlbl.setTextFill(Color.web("#000000"));
+
+        if (LoginController.us.getRoles().contains("ROLE_ADMIN")) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeAcceuil.fxml"));
+                Scene scene = new Scene(root);
+                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                app_stage.setScene(scene);
+                app_stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(HomeFrontEndController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (LoginController.us.getRoles().equals("a:0:{}")) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/OthersBackOfficeProfile.fxml"));
+                Scene scene = new Scene(root);
+                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                app_stage.setScene(scene);
+                app_stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(HomeFrontEndController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeOther.fxml"));
+                Scene scene = new Scene(root);
+                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                app_stage.setScene(scene);
+                app_stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(HomeFrontEndController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     @FXML
@@ -219,6 +273,7 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#000000"));
         wishlistlbl.setTextFill(Color.web("#000000"));
         panierlbl.setTextFill(Color.web("#000000"));
+        LooadUI("/views/MMarketing/Promotion/affichage_promo");
     }
 
     @FXML
@@ -233,6 +288,7 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#000000"));
         wishlistlbl.setTextFill(Color.web("#000000"));
         panierlbl.setTextFill(Color.web("#000000"));
+        LooadUI("/views/MMarketing/Evenement/afficher_evenementt");
     }
 
     @FXML
@@ -247,6 +303,11 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#000000"));
         wishlistlbl.setTextFill(Color.web("#000000"));
         panierlbl.setTextFill(Color.web("#000000"));
+
+        AfficheBlogController.homeBorderPane = borderpane;
+        System.out.println("here");
+        LooadUI("/views/MCommunication/AfficheBlog");
+
     }
 
     @FXML
@@ -275,6 +336,7 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#000000"));
         wishlistlbl.setTextFill(Color.web("#000000"));
         panierlbl.setTextFill(Color.web("#000000"));
+        ReclamationController.Pane = borderpane;
         LooadUI("/views/MService/Reclamation/FE/Reclamation");
     }
 
@@ -290,6 +352,7 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#ffffff"));
         wishlistlbl.setTextFill(Color.web("#000000"));
         panierlbl.setTextFill(Color.web("#000000"));
+        LooadUI("/messenger/resources/views/LoginView");
     }
 
     @FXML
@@ -304,8 +367,8 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#000000"));
         wishlistlbl.setTextFill(Color.web("#ffffff"));
         panierlbl.setTextFill(Color.web("#000000"));
-        WishlistController.HomeBorderrrr=borderpane;
-         LooadUI("/views/MService/Wishlist/Wishlist");
+        WishlistController.HomeBorderrrr = borderpane;
+        LooadUI("/views/MService/Wishlist/Wishlist");
     }
 
     @FXML
@@ -322,17 +385,15 @@ public class HomeFrontEndController implements Initializable {
         panierlbl.setTextFill(Color.web("#ffffff"));
     }
 
-    
-
-   
-   private  void LooadUI(String ui)
-    {
-        Parent root=null;
+    private void LooadUI(String ui) {
+        Parent root = null;
         try {
-            root=FXMLLoader.load(getClass().getResource(ui+".fxml"));
-            
-        } catch (IOException ex) {System.err.println(ex.getMessage());     }
+            root = FXMLLoader.load(getClass().getResource(ui + ".fxml"));
+
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
         borderpane.setCenter(root);
     }
-    
+
 }

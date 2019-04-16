@@ -32,7 +32,7 @@
                   </ImageView>
                   <VBox layoutY="141.0" prefHeight="551.0" prefWidth="169.0">
                      <children>
-                        <Pane onMouseClicked="#dashclik" onMouseEntered="#dashbordentred" onMouseExited="#dashbordexit" prefHeight="50.0" prefWidth="170.0">
+                        <Pane fx:id="panedhash" onMouseClicked="#dashclik" onMouseEntered="#dashbordentred" onMouseExited="#dashbordexit" prefHeight="50.0" prefWidth="170.0">
                            <children>
                               <ImageView fx:id="imgdhash" fitHeight="41.0" fitWidth="41.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -116,7 +116,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane onMouseClicked="#avisclik" onMouseEntered="#avisentred" onMouseExited="#avisexit" prefHeight="50.0" prefWidth="170.0">
+                        <Pane fx:id="paneavis" onMouseClicked="#avisclik" onMouseEntered="#avisentred" onMouseExited="#avisexit" prefHeight="50.0" prefWidth="170.0">
                            <children>
                               <ImageView fx:id="imgavis" fitHeight="41.0" fitWidth="41.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
