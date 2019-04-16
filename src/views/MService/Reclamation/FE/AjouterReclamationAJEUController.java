@@ -42,6 +42,9 @@ import techniques.BadWords;
 import techniques.DateConverter;
 import techniques.Mail;
 import techniques.Notification;
+import techniques.SMS;
+import techniques.VOICE_RSS;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  * FXML Controller class
@@ -83,7 +86,7 @@ public class AjouterReclamationAJEUController implements Initializable {
             alert("mauvais mots", " il est interdit d'utiliser des mauvais mots");
         } else {
             Reclamation r1 = new Reclamation();
-            r1.setUser_id(2);
+            r1.setUser_id(LoginController.us.getId());
             r1.setType(Rtype.getText());
             r1.setDescription(Description.getText());
             r1.setSubject(Subject.getText());
@@ -95,6 +98,9 @@ public class AjouterReclamationAJEUController implements Initializable {
             new Notification("Nouveau Reclamation", Subject.getText(), UserToClaim.getText());
             String mail = cu.getUserByName(UserToClaim.getText()).getEmail();
             new Mail(mail, "E-nersery", "vous ete reclamer \n\nSujet est : " + Subject.getText());
+            SMS.SMS(cu.getUserByName(UserToClaim.getText()).getPhone_number(), "vous ete reclamer \n\n Sujet est : "+ Subject.getText());
+            new VOICE_RSS("reclamation envoyer", "fr");
+            
         }
     }
 

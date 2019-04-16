@@ -9,17 +9,22 @@ import crud.MService.Reclamation.FE.CrudReclamation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import views.HomeFEController;
+import javafx.stage.Stage;
+import views.MGestionUtilisateur.OthersBackOfficeProfileController;
 
 /**
  * FXML Controller class
@@ -42,6 +47,8 @@ public class ReclamationController implements Initializable {
     private Button ConsultProfilebtn;
     @FXML
     private  BorderPane RPane;
+    public static BorderPane Pane;
+    private BorderPane Pane2;
     private CrudReclamation CR=new CrudReclamation();
     
 
@@ -50,7 +57,7 @@ public class ReclamationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     
+     Pane2=Pane;
     }    
 
     @FXML
@@ -85,8 +92,21 @@ public class ReclamationController implements Initializable {
 
     @FXML
     private void ConsultProfile(ActionEvent event) {
-        if(CR.listerReclamationSpe("Tout").size()==0) alert("None ", "Il ya aucun Reclamation existe"); 
-        else LooadUI("AFFANDSUPPReclamation");
+        
+        OthersBackOfficeProfileController.Pane=Pane2;
+         Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/OthersBackOfficeProfile.fxml"));
+            Scene scene = new Scene(root);
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(scene);
+        app_stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ReclamationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }
     private void alert(String un,String deux)
     {

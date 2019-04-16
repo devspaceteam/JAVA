@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import techniques.BadWords;
 import techniques.DateConverter;
 import techniques.Notification;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  * FXML Controller class
@@ -64,7 +65,7 @@ private CrudReclamation CR=new CrudReclamation();
         else
         {
         Reclamation r1 = new Reclamation();
-        r1.setUser_id(2);
+        r1.setUser_id(LoginController.us.getId());
         r1.setType("Autre");
         r1.setDescription(Description.getText());
         r1.setSubject(Sujet.getText());
