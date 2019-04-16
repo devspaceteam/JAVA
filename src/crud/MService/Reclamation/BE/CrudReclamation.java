@@ -96,27 +96,27 @@ public class CrudReclamation {
 
     public List<Reclamation> listerALLReclamation() {
 
-        String requete4 = "Select * from reclamation where reclamation.important=0 and reclamation.trash=0";
+        String requete4 = "Select * from reclamation where reclamation.important=0 and reclamation.trash=0 ORDER BY reclamation.date DESC ";
         return ListRsearchMethod(requete4);
     }
 
     public List<Reclamation> ListerNonLu() {
-        String requete4 = "Select * from reclamation where reclamation.state=0 and reclamation.important=0 and reclamation.trash=0";
+        String requete4 = "Select * from reclamation where reclamation.state=0 and reclamation.important=0 and reclamation.trash=0 ORDER BY reclamation.date DESC";
         return ListRsearchMethod(requete4);
     }
 
     public List<Reclamation> ListerLu() {
-        String requete4 = "Select * from reclamation where reclamation.state=1 and reclamation.important=0 and reclamation.trash=0";
+        String requete4 = "Select * from reclamation where reclamation.state=1 and reclamation.important=0 and reclamation.trash=0 ORDER BY reclamation.date DESC";
         return ListRsearchMethod(requete4);
     }
 
     public List<Reclamation> ListerImportant() {
-        String requete4 = "Select * from reclamation where  reclamation.important=1 and reclamation.trash=0";
+        String requete4 = "Select * from reclamation where  reclamation.important=1 and reclamation.trash=0 ORDER BY reclamation.date DESC";
         return ListRsearchMethod(requete4);
     }
 
     public List<Reclamation> ListerTrash() {
-        String requete4 = "Select * from reclamation where   reclamation.trash=1";
+        String requete4 = "Select * from reclamation where   reclamation.trash=1 ORDER BY reclamation.date DESC";
         return ListRsearchMethod(requete4);
     }
 
@@ -200,7 +200,7 @@ public class CrudReclamation {
         int l = 0;
         try {
 
-            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE reclamation.user_id =2 and reclamation.important=0 and reclamation.trash=0";
+            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE  reclamation.important=0 and reclamation.trash=0";
 
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
 
@@ -219,7 +219,7 @@ public class CrudReclamation {
         int l = 0;
         try {
 
-            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE reclamation.user_id =2 and reclamation.state=1 and reclamation.important=0 and reclamation.trash=0";
+            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE reclamation.state=1 and reclamation.important=0 and reclamation.trash=0";
 
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
 
@@ -238,7 +238,7 @@ public class CrudReclamation {
         int l = 0;
         try {
 
-            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE reclamation.user_id =2 and reclamation.state=0 and reclamation.important=0 and reclamation.trash=0";
+            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE   reclamation.state=0 and reclamation.important=0 and reclamation.trash=0";
 
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
 
@@ -257,7 +257,7 @@ public class CrudReclamation {
         int l = 0;
         try {
 
-            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE reclamation.user_id =2 and  reclamation.important=1 and reclamation.trash=0";
+            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE   reclamation.important=1 and reclamation.trash=0";
 
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
 
@@ -276,7 +276,7 @@ public class CrudReclamation {
         int l = 0;
         try {
 
-            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE reclamation.user_id =2 and reclamation.trash=1";
+            String requete4 = "SELECT COUNT(id) AS x FROM `reclamation`  WHERE  reclamation.trash=1";
 
             Statement st2 = MyConnection.getInstance().getCnx().createStatement();
 
@@ -307,4 +307,37 @@ public class CrudReclamation {
             System.out.println(ex.getMessage());
         }
     }
+
+    public List<Reclamation> listerReclamationSpe(String nom) {
+        String requete4;
+
+        List<Reclamation> myList = new ArrayList();
+        try {
+
+            requete4 = "Select * from reclamation where reclamation.userToClaim='" + nom + "'";
+
+            Statement st2 = MyConnection.getInstance().getCnx()
+                    .createStatement();
+
+            ResultSet rs = st2.executeQuery(requete4);
+
+            while (rs.next()) {
+                Reclamation p = new Reclamation();
+//                p.setId(rs.getInt(1));
+//                p.setUser_id(rs.getInt(2));
+//                p.setSubject(rs.getString(3));
+//                p.setDescription(rs.getString(4));
+                p.setDate(rs.getDate(5));
+//                p.setType(rs.getString(6));
+//                p.setUserToClaim(rs.getString(7));
+
+                myList.add(p);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return myList;
+    }
+
 }
