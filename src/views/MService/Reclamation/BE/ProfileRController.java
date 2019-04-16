@@ -34,6 +34,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import techniques.Mail;
+import views.MVente.Livraison.AfficheLivraisonBackController;
 
 /**
  * FXML Controller class
@@ -133,7 +134,7 @@ public class ProfileRController implements Initializable {
             System.out.println(month+"   "+mois[month]);
         }
         
-        series.setName("moyenne de reclamation par ans :  "+new DecimalFormat("0.00").format(moy/12));
+        series.setName("moyenne de reclamation par mois :  "+new DecimalFormat("0.00").format(moy/12));
         series.getData().add(new XYChart.Data("Jan", mois[0]));
         series.getData().add(new XYChart.Data("Feb", mois[1]));
         series.getData().add(new XYChart.Data("Mar", mois[2]));
@@ -152,6 +153,23 @@ public class ProfileRController implements Initializable {
         lineChart.getData().add(series);
         Group root = new Group(lineChart);
         panelchart.getChildren().add(root);
+    }
+
+    @FXML
+    private void livb(MouseEvent event) {
+        
+        
+        AfficheLivraisonBackController.user=u;
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/views/MVente/Livraison/AfficheLivraisonBack.fxml"));
+
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+        BPane.setCenter(root);
+       
+        
     }
 }
 /*
