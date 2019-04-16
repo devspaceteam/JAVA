@@ -171,6 +171,9 @@ public void init(){
   if (result.get() == ButtonType.OK) {
  for (Evenement e : afficherEVE.getSelectionModel().getSelectedItems()) {
               cpp.supprimerEvenement(e.getNom_evenement());
+            
+
+
         }
            
             Alert a2 = new Alert(Alert.AlertType.INFORMATION);

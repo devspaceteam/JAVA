@@ -96,7 +96,7 @@ private Crud_Promotion cp = new Crud_Promotion() ;
         
         cp.ajouterPromotion(p);
         new Notif("promotion ajouter", "promotion ajouter avec succes", "windows");
-         new Mail(LoginController.us.getEmail(), "promotions ajouter" , "merci pour votre consultation de nos produits ") ;
+         new Mail(LoginController.us.getEmail(), "promotions_ajouter" , "merci pour votre consultation de nos produits ") ;
            LoPage("Promotion");
         }
          

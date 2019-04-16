@@ -283,12 +283,12 @@ init();
         com.itextpdf.text.Document document = new com.itextpdf.text.Document();
         PdfWriter.getInstance(document, new FileOutputStream("C:/Users/mahjoub/Desktop/Promotions.pdf"));
         document.open();
-        document.add(new Paragraph("Tech Events ", FontFactory.getFont(FontFactory.TIMES)));
+        document.add(new Paragraph("LISTE DES PROMOTIONS ", FontFactory.getFont(FontFactory.TIMES)));
       
         /*String date=new Date().toString();*/
         //document.add(new Paragraph(" Date : " + new Date().toString()));
-        document.add(new Paragraph("VOICI la liste des promotions selectionner "));
-        document.add(new Paragraph("Consulter votre demanden "));
+        document.add(new Paragraph("VOICI la liste des promotions selectionner -------------------------------------------------------------------------------"));
+       
         com.itextpdf.text.pdf.PdfPTable table = new com.itextpdf.text.pdf.PdfPTable(2);
         com.itextpdf.text.pdf.PdfPCell cell = new com.itextpdf.text.pdf.PdfPCell(new Paragraph("Détails de la promotion"));
         cell.setColspan(4);

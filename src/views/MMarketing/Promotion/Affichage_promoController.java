@@ -9,12 +9,15 @@ import crud.MMarketing.Promotion.Crud_Promotion;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -52,6 +55,8 @@ List<String> list= new ArrayList <String>();
          int prixinitilae=cp.esmproduit1(list.get(i));
          
                   int prixfinalee=cp.esmproduit11(list.get(i));
+             int Date = cp.datte(list.get(i));
+               int pou = cp.pourc(list.get(i));
 
                  
                  
@@ -98,15 +103,18 @@ List<String> list= new ArrayList <String>();
          prix.getStyleClass().add("barre");
          
             Label prixpromo = new Label(prixfinalee+" TND"); 
+            Label da = new Label("REDUCTION " +   pou+"%"+ "    jusqua  "+Date);  
            image.setFitHeight(350);
             image.setFitWidth(250);
           
-            content.getChildren().addAll(image,title,prix,prixpromo);
+            content.getChildren().addAll(image,title,prix,prixpromo,da);
             Button btn = new Button("",content);
             
             item.getChildren().add(btn);
  
        }
     }    
+
+  
     
 }

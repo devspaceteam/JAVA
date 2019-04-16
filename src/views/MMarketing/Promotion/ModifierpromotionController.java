@@ -22,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import techniques.DateConverter;
 import techniques.Mail;
 import techniques.Notif;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  * FXML Controller class
@@ -89,7 +90,7 @@ public class ModifierpromotionController implements Initializable {
        
         cp.modifierPromotion(p,x);
          new Notif("promotion modifier", "promotion modifer avec succes", "windows");
-        // new Mail("mohameddhia.soudani@esprit.tn", "cccccccc" , "ffffffff") ;
+         new Mail(LoginController.us.getEmail(), "promotions_modifer" , "merci pour votre consultation de nos produits ") ;
     }
     
 }

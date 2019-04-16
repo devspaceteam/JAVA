@@ -23,6 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import techniques.DateConverter;
+import techniques.Mail;
+import techniques.Notif;
+import views.MGestionUtilisateur.LoginController;
 import static views.MMarketing.Promotion.ModifierpromotionController.Promo;
 
 /**
@@ -85,6 +88,8 @@ public class ModifierevenementController implements Initializable {
 
        
         cpp.modifierEvenement(e,x);
+        new Notif("promotion modifer", "promotion modifier avec succes", "windows");
+         new Mail(LoginController.us.getEmail(), "promotions_modfier" , "merci pour votre consultation de nos produits ") ;
         
     }
 

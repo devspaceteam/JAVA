@@ -57,7 +57,7 @@ private Crud_Evenement cpp = new Crud_Evenement();
                  
            int prixfinaleee=cpp.esmproduit1(list.get(i));
  //list=cp.esmproduit2();
-
+ int Date = cpp.datte(list.get(i));
 
             //item = new HBox();
            // produit_promo.getChildren().add(item);   
@@ -96,10 +96,11 @@ private Crud_Evenement cpp = new Crud_Evenement();
 //         prix.getStyleClass().add("barre");
 //         
             Label prixpromo = new Label(prixfinaleee+" Cadeau"); 
+             Label da = new Label("    jusqua  "+Date);  
            image.setFitHeight(350);
             image.setFitWidth(250);
           
-            content.getChildren().addAll(image,title,prixpromo);
+            content.getChildren().addAll(image,title,prixpromo,da);
             Button btn = new Button("",content);
             
             item.getChildren().add(btn);
