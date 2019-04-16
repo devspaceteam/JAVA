@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import techniques.DateConverter;
 import techniques.MyConnection;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  *
@@ -94,9 +95,9 @@ public class CrudReclamation {
         try {
 
             if (t.equals("Tout")) {
-                requete4 = "Select * from reclamation where reclamation.user_id=2";
+                requete4 = "Select * from reclamation where reclamation.user_id="+LoginController.us.getId()+"";
             } else {
-                requete4 = "Select * from reclamation where reclamation.user_id=2 and reclamation.type='" + t + "'";
+                requete4 = "Select * from reclamation where reclamation.user_id="+LoginController.us.getId()+" and reclamation.type='" + t + "'";
             }
 
             Statement st2 = MyConnection.getInstance().getCnx()
