@@ -29,6 +29,8 @@ import views.MCommunication.AfficheBlogController;
 import views.MGestionUtilisateur.LoginController;
 import views.MService.Reclamation.FE.ReclamationController;
 import views.MService.Wishlist.WishlistController;
+import views.MVente.Livraison.AfficheLivraisonController;
+import views.MVente.Panier.AffichePanierController;
 
 /**
  * FXML Controller class
@@ -249,16 +251,23 @@ public class HomeFrontEndController implements Initializable {
 
     @FXML
     private void shopclik(MouseEvent event) {
-        dashlbl.setTextFill(Color.web("#000000"));
-        shoplbl.setTextFill(Color.web("#ffffff"));
-        promotionlbl.setTextFill(Color.web("#000000"));
-        evenementlbl.setTextFill(Color.web("#000000"));
-        bloglbl.setTextFill(Color.web("#000000"));
-        livraisonlbl.setTextFill(Color.web("#000000"));
-        avislbl.setTextFill(Color.web("#000000"));
-        messagelbl.setTextFill(Color.web("#000000"));
-        wishlistlbl.setTextFill(Color.web("#000000"));
-        panierlbl.setTextFill(Color.web("#000000"));
+        try {
+            dashlbl.setTextFill(Color.web("#000000"));
+            shoplbl.setTextFill(Color.web("#ffffff"));
+            promotionlbl.setTextFill(Color.web("#000000"));
+            evenementlbl.setTextFill(Color.web("#000000"));
+            bloglbl.setTextFill(Color.web("#000000"));
+            livraisonlbl.setTextFill(Color.web("#000000"));
+            avislbl.setTextFill(Color.web("#000000"));
+            messagelbl.setTextFill(Color.web("#000000"));
+            wishlistlbl.setTextFill(Color.web("#000000"));
+            panierlbl.setTextFill(Color.web("#000000"));
+            
+            Parent root = FXMLLoader.load(getClass().getResource("/views/MProduit/FrontAfficherProduitDetail.fxml"));
+            borderpane.setCenter(root);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeFrontEndController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -322,6 +331,8 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#000000"));
         wishlistlbl.setTextFill(Color.web("#000000"));
         panierlbl.setTextFill(Color.web("#000000"));
+        AfficheLivraisonController.HomeBorderrrr = borderpane;
+        LooadUI("/views/MVente/Livraison/AfficheLivraison");
     }
 
     @FXML
@@ -383,6 +394,9 @@ public class HomeFrontEndController implements Initializable {
         messagelbl.setTextFill(Color.web("#000000"));
         wishlistlbl.setTextFill(Color.web("#000000"));
         panierlbl.setTextFill(Color.web("#ffffff"));
+
+        AffichePanierController.HomeBorderrrr = borderpane;
+        LooadUI("/views/MVente/Panier/AffichePanier");
     }
 
     private void LooadUI(String ui) {
