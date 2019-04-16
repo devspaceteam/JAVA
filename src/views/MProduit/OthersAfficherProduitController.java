@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MProduit;
 
-import Crud.CrudCategorie;
-import Crud.CrudProduit;
-import Entity.Categorie;
-import Entity.Produit;
-import Entity.User;
+import crud.MProduit.CrudCategorie;
+import crud.MProduit.CrudProduit;
+import entities.MGestionUtilisateur.User;
+import entities.MProduit.Categorie;
+import entities.MProduit.Produit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,6 +51,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.textfield.TextFields;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  * FXML Controller class
@@ -123,15 +124,16 @@ public class OthersAfficherProduitController implements Initializable {
     private Label cheminimage1;
     @FXML
     private Label cheminimage2;
-        User us = LoginController.us;
+    User us = LoginController.us;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        username.setText("Bienvenue " + LoginController.us.getUsername().toUpperCase());
         data = FXCollections.observableArrayList();
-        Crud.CrudCategorie categorieType = new CrudCategorie();
+        CrudCategorie categorieType = new CrudCategorie();
         List<Categorie> list = categorieType.AfficherCategorie();
         for (Categorie c : list) {
             type.getItems().add(c.getNom());
@@ -151,7 +153,7 @@ public class OthersAfficherProduitController implements Initializable {
 
     @FXML
     private void ajoutproduit(ActionEvent event) throws SQLException, IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("OthersAjouterProduits.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MProduit/OthersAjouterProduits.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -160,8 +162,8 @@ public class OthersAfficherProduitController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) throws IOException, SQLException {
-        LoginController.us = null;
-        Parent root = FXMLLoader.load(getClass().getResource("BackOfficeOther.fxml"));
+
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeOther.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -172,7 +174,7 @@ public class OthersAfficherProduitController implements Initializable {
     @FXML
     private void deco(MouseEvent event) throws IOException, SQLException {
         LoginController.us = null;
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -182,13 +184,13 @@ public class OthersAfficherProduitController implements Initializable {
 
     @FXML
     private void image1(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc1.setInitialDirectory(new File("C:\\"));
         selectedFile1 = fc1.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile1, dest);
 
-        File newFile1 = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\" + selectedFile1.getName());
+        File newFile1 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile1.getName());
 
         FileInputStream input1 = new FileInputStream(newFile1);
         Image image1 = new Image(input1);
@@ -198,13 +200,13 @@ public class OthersAfficherProduitController implements Initializable {
 
     @FXML
     private void image2(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc2.setInitialDirectory(new File("C:\\"));
         selectedFile2 = fc2.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile2, dest);
 
-        File newFile2 = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\" + selectedFile2.getName());
+        File newFile2 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile2.getName());
 
         FileInputStream input2 = new FileInputStream(newFile2);
         Image image2 = new Image(input2);
@@ -214,13 +216,13 @@ public class OthersAfficherProduitController implements Initializable {
 
     @FXML
     private void image3(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp64\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc3.setInitialDirectory(new File("C:\\"));
         selectedFile3 = fc3.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile3, dest);
 
-        File newFile3 = new File("C:\\wamp64\\www\\DevSpace\\web\\devis\\" + selectedFile3.getName());
+        File newFile3 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile3.getName());
 
         FileInputStream input3 = new FileInputStream(newFile3);
         Image image3 = new Image(input3);
@@ -230,7 +232,6 @@ public class OthersAfficherProduitController implements Initializable {
 
     @FXML
     private void modifier(ActionEvent event) {
-        
 
         String id = idE.getText();
         if (id.equals("")) {
@@ -305,9 +306,9 @@ public class OthersAfficherProduitController implements Initializable {
 
                 r.setId_produit(Integer.valueOf(idE.getText()));
                 //r.setId_categorie(retId(type.getValue()));
-                
+
                 int idCategorie = 0;
-                Crud.CrudCategorie categorieType = new CrudCategorie();
+                CrudCategorie categorieType = new CrudCategorie();
                 List<Categorie> list = categorieType.AfficherCategorie();
                 for (Categorie c : list) {
                     if (c.getNom().equals(type.getValue())) {
@@ -315,7 +316,7 @@ public class OthersAfficherProduitController implements Initializable {
                     }
                 }
                 r.setId_categorie(idCategorie);
-                
+
                 r.setId_user(us.getId());
                 r.setPrix(pri);
                 r.setQuantite(quan);
@@ -328,13 +329,13 @@ public class OthersAfficherProduitController implements Initializable {
                 services.ModifierProduit(r, idr);
                 nom.setText("");
                 description.setText("");
-                imageviewer1.setVisible(false);
-                imageviewer3.setVisible(false);
-                imageviewer2.setVisible(false);
                 type.setValue("");
                 prix.setText("");
                 quant.setText("");
                 idE.setText("");
+                imageviewer1.setImage(null);
+                imageviewer2.setImage(null);
+                imageviewer3.setImage(null);
                 data.clear();
 //                    setsCllTable();
 //                data.clear();
@@ -346,7 +347,7 @@ public class OthersAfficherProduitController implements Initializable {
 
     @FXML
     private void supprimer(ActionEvent event) {
-        
+
         String id = idE.getText();
         if (id.equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -365,9 +366,9 @@ public class OthersAfficherProduitController implements Initializable {
                 cc.SupprimerProduit(Integer.valueOf(id));
                 nom.setText("");
                 description.setText("");
-                imageviewer1.setVisible(false);
-                imageviewer3.setVisible(false);
-                imageviewer2.setVisible(false);
+                imageviewer1.setImage(null);
+                imageviewer2.setImage(null);
+                imageviewer3.setImage(null);
                 type.setValue("");
                 prix.setText("");
                 quant.setText("");
@@ -377,6 +378,7 @@ public class OthersAfficherProduitController implements Initializable {
             }
         }
     }
+
     public void search() {
         FilteredList<Produit> filterdata = new FilteredList<>(data, e -> true);
         rech.setOnKeyReleased(e -> {
@@ -399,15 +401,15 @@ public class OthersAfficherProduitController implements Initializable {
             tableview.setItems(sorteddata);
         });
     }
-    
-        private void setcellValue() {
+
+    private void setcellValue() {
         tableview.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
                 Produit p = tableview.getItems().get(tableview.getSelectionModel().getSelectedIndex());
                 idE.setText(String.valueOf(p.getId_produit()));
                 nom.setText(p.getNom());
-                Crud.CrudCategorie categorieType = new CrudCategorie();
+                CrudCategorie categorieType = new CrudCategorie();
                 List<Categorie> list = categorieType.AfficherCategorie();
                 for (Categorie c : list) {
                     if (c.getId_categorie() == p.getId_categorie()) {
@@ -420,12 +422,15 @@ public class OthersAfficherProduitController implements Initializable {
                 cheminimage1.setText(p.getDevis_name1());
                 cheminimage2.setText(p.getDevis_name2());
                 cheminimage3.setText(p.getDevis_name3());
+                Image1();
+                Image2();
+                Image3();
             }
         });
 
     }
-        
-        private void loadDataFromDatabase() {
+
+    private void loadDataFromDatabase() {
         try {
             List<Produit> rs = null;
             CrudProduit service = new CrudProduit();
@@ -460,8 +465,8 @@ public class OthersAfficherProduitController implements Initializable {
         type_prod.setCellValueFactory(new PropertyValueFactory<>("id_categorie"));
 
     }
-    
-        public boolean estUnFloat(String x) {
+
+    public boolean estUnFloat(String x) {
         try {
             Float.parseFloat(x);
         } catch (NumberFormatException e) {
@@ -481,5 +486,27 @@ public class OthersAfficherProduitController implements Initializable {
         return true;
     }
 
+    private void Image1() {
 
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", cheminimage1.getText());
+        Image image = new Image(file.toURI().toString());
+        imageviewer1.setImage(image);
+
+    }
+
+    private void Image2() {
+
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", cheminimage2.getText());
+        Image image = new Image(file.toURI().toString());
+        imageviewer2.setImage(image);
+
+    }
+
+    private void Image3() {
+
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", cheminimage3.getText());
+        Image image = new Image(file.toURI().toString());
+        imageviewer3.setImage(image);
+
+    }
 }

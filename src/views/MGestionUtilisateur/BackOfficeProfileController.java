@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MGestionUtilisateur;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +55,7 @@ public class BackOfficeProfileController implements Initializable {
 
     @FXML
     private void email(ActionEvent event) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(getClass().getResource("BackOfficeAdresseMail.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeAdresseMail.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -64,7 +64,7 @@ public class BackOfficeProfileController implements Initializable {
 
     @FXML
     private void info(ActionEvent event) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(getClass().getResource("BackOfficeInfo.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeInfo.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -73,7 +73,7 @@ public class BackOfficeProfileController implements Initializable {
 
     @FXML
     private void mdp(ActionEvent event) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(getClass().getResource("BackOfficePassword.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficePassword.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -82,7 +82,7 @@ public class BackOfficeProfileController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(getClass().getResource("BackOfficeAcceuil.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeAcceuil.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);

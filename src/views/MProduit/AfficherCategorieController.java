@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MProduit;
 
-import Crud.CrudCategorie;
-import Entity.Categorie;
+
+import crud.MProduit.CrudCategorie;
+import entities.MProduit.Categorie;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,6 +51,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.textfield.TextFields;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  * FXML Controller class
@@ -124,7 +126,7 @@ public class AfficherCategorieController implements Initializable {
 
     @FXML
     private void ajouter(ActionEvent event) throws SQLException, IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("AjouterCategorie.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MProduit/AjouterCategorie.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -172,6 +174,11 @@ public class AfficherCategorieController implements Initializable {
                     r.setDevis_name(image1);
 
                     services.ModifierCategorie(r,idr);
+                                    imageview.setImage(null);
+                nom.setText("");
+                description.setText("");
+                type.setValue("");
+                idE.setText("");
                     data.clear();
 //                    setsCllTable();
 //                data.clear();
@@ -214,7 +221,7 @@ public class AfficherCategorieController implements Initializable {
     @FXML
     private void retour(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("BackOfficeAcceuil.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeAcceuil.fxml"));
             Scene scene = new Scene(root);
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(scene);
@@ -296,13 +303,13 @@ public class AfficherCategorieController implements Initializable {
 
     @FXML
     private void image(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc1.setInitialDirectory(new File("C:\\"));
         selectedFile1 = fc1.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile1, dest);
 
-        File newFile1 = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\" + selectedFile1.getName());
+        File newFile1 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile1.getName());
 
         FileInputStream input1 = new FileInputStream(newFile1);
         Image image1 = new Image(input1);
@@ -313,12 +320,18 @@ public class AfficherCategorieController implements Initializable {
     @FXML
     private void deco(MouseEvent event) throws IOException, SQLException {
         LoginController.us = null;
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
         app_stage.show();
 
     }
+    private void Image1() {
 
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", cheminimage1.getText());
+        Image image = new Image(file.toURI().toString());
+        imageview.setImage(image);
+
+    }
 }

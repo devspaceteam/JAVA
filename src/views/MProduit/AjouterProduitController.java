@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MProduit;
 
-import Crud.CrudCategorie;
-import Crud.CrudProduit;
-import Entity.Categorie;
-import Entity.Produit;
-import Entity.User;
+import crud.MProduit.CrudCategorie;
+import crud.MProduit.CrudProduit;
+import entities.MGestionUtilisateur.User;
+import entities.MProduit.Categorie;
+import entities.MProduit.Produit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,6 +42,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  * FXML Controller class
@@ -102,8 +103,8 @@ public class AjouterProduitController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        Crud.CrudCategorie categorieType = new CrudCategorie();
+        username.setText("Bienvenue "+LoginController.us.getUsername().toUpperCase());
+        CrudCategorie categorieType = new CrudCategorie();
         List<Categorie> list = categorieType.AfficherCategorie();
         for (Categorie c : list) {
             categorie.getItems().add(c.getNom());
@@ -172,7 +173,7 @@ public class AjouterProduitController implements Initializable {
 
                 String nomProduit = nom.getText();
                 int idCategorie = 0;
-                Crud.CrudCategorie categorieType = new CrudCategorie();
+                CrudCategorie categorieType = new CrudCategorie();
                 List<Categorie> list = categorieType.AfficherCategorie();
                 for (Categorie c : list) {
                     if (c.getNom().equals(categorie.getValue())) {
@@ -202,8 +203,8 @@ public class AjouterProduitController implements Initializable {
                 p.setQuantite(quant);
                 cp.AjouterProduit(p);
 
-                LoginController.us = null;
-                Parent root = FXMLLoader.load(getClass().getResource("AfficherProduit.fxml"));
+                
+                Parent root = FXMLLoader.load(getClass().getResource("/views/MProduit/AfficherProduit.fxml"));
                 Scene scene = new Scene(root);
                 Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 app_stage.setScene(scene);
@@ -220,13 +221,13 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private void ajoutImage1(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc1.setInitialDirectory(new File("C:\\"));
         selectedFile1 = fc1.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile1, dest);
 
-        File newFile1 = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\" + selectedFile1.getName());
+        File newFile1 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile1.getName());
 
         FileInputStream input1 = new FileInputStream(newFile1);
         Image image1 = new Image(input1);
@@ -236,13 +237,13 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private void ajoutImage2(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc2.setInitialDirectory(new File("C:\\"));
         selectedFile2 = fc2.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile2, dest);
 
-        File newFile2 = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\" + selectedFile2.getName());
+        File newFile2 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile2.getName());
 
         FileInputStream input2 = new FileInputStream(newFile2);
         Image image2 = new Image(input2);
@@ -252,13 +253,13 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private void ajoutImage3(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp64\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc3.setInitialDirectory(new File("C:\\"));
         selectedFile3 = fc3.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile3, dest);
 
-        File newFile3 = new File("C:\\wamp64\\www\\DevSpace\\web\\devis\\" + selectedFile3.getName());
+        File newFile3 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile3.getName());
 
         FileInputStream input3 = new FileInputStream(newFile3);
         Image image3 = new Image(input3);
@@ -281,13 +282,18 @@ public class AjouterProduitController implements Initializable {
     }
 
     @FXML
-    private void monprofile(MouseEvent event) {
+    private void monprofile(MouseEvent event) throws IOException, SQLException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
+        Scene scene = new Scene(root);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(scene);
+        app_stage.show();
     }
 
     @FXML
     private void deco(MouseEvent event) throws IOException, SQLException {
         LoginController.us = null;
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -297,8 +303,8 @@ public class AjouterProduitController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) throws IOException, SQLException {
-        LoginController.us = null;
-        Parent root = FXMLLoader.load(getClass().getResource("AfficherProduit.fxml"));
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MProduit/AfficherProduit.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);

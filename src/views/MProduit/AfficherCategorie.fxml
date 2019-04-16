@@ -16,10 +16,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #2b2a2a;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AfficherCategorieController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MProduit.AfficherCategorieController">
    <children>
-      <Button fx:id="ajouter" layoutX="352.0" layoutY="431.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #87CEFA;" text="Ajouter" textFill="WHITE" />
-      <Button fx:id="modifier" layoutX="508.0" layoutY="431.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #87CEFA;" text="Modifier" textFill="WHITE" />
+      <Button fx:id="ajouter" layoutX="352.0" layoutY="431.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #1E90FF;" text="Ajouter" textFill="WHITE" />
+      <Button fx:id="modifier" layoutX="508.0" layoutY="431.0" mnemonicParsing="false" onAction="#modifier" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #1E90FF;" text="Modifier" textFill="WHITE" />
       <Button fx:id="supprimer" layoutX="973.0" layoutY="431.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #87CEFA;" text="Supprimer" textFill="WHITE" />
       <TextField fx:id="rech" layoutX="270.0" layoutY="91.0" prefHeight="25.0" prefWidth="177.0" />
       <Label layoutX="40.0" layoutY="95.0" text="Chercher une categorie" textFill="WHITE" />
@@ -28,15 +28,15 @@
             <TextArea fx:id="description" layoutX="52.0" layoutY="193.0" prefHeight="71.0" prefWidth="218.0" promptText="Description" />
             <TextField fx:id="nom" layoutX="52.0" layoutY="34.0" prefHeight="25.0" prefWidth="218.0" promptText="Nom" />
             <ComboBox fx:id="type" layoutX="52.0" layoutY="87.0" prefHeight="25.0" prefWidth="218.0" promptText="Type" />
-            <Button fx:id="image" layoutX="52.0" layoutY="139.0" mnemonicParsing="false" onAction="#image" prefHeight="25.0" prefWidth="218.0" text="Choisir une image" />
+            <Button fx:id="image" layoutX="52.0" layoutY="139.0" mnemonicParsing="false" onAction="#image" prefHeight="25.0" prefWidth="218.0" style="-fx-background-color: #1E90FF;" text="Choisir une image" textFill="WHITE" />
             <BorderPane layoutX="316.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0">
-               <top>
+               <center>
                   <ImageView fx:id="imageview" fitHeight="201.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-               </top>
+               </center>
             </BorderPane>
          </children>
       </AnchorPane>
-      <Button fx:id="retour" layoutX="40.0" layoutY="431.0" mnemonicParsing="false" onAction="#retour" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #1E90FF;" text="Retour" textFill="WHITE" />
+      <Button fx:id="retour" layoutX="40.0" layoutY="431.0" mnemonicParsing="false" onAction="#retour" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #87CEFA;" text="Retour" textFill="WHITE" />
       <TableView fx:id="tableview" layoutX="40.0" layoutY="138.0" prefHeight="278.0" prefWidth="407.0">
         <columns>
           <TableColumn fx:id="id_cat" prefWidth="46.0" text="Id" />

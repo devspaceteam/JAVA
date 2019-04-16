@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MGestionUtilisateur;
 
-import Crud.CrudUser;
-import Entity.User;
+import crud.MGestionUtilisateurs.CrudUser;
+import entities.MGestionUtilisateur.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import techniques.BCryptPasswordEncoder;
 
 /**
  * FXML Controller class
@@ -67,7 +68,7 @@ public class RegisterController implements Initializable {
         try {
             Stage stage = new Stage();
             ((Node) (event.getSource())).getScene().getWindow().hide();
-            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -127,22 +128,26 @@ public class RegisterController implements Initializable {
 
                 User u = new User();
                 u.setEmail(email.getText());
-                u.setPassword(password.getText());
+                
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(password.getText());
+                
+                 u.setPassword(hashedPassword);
                 u.setUsername(username.getText());
                 if (role.getValue().equals("Administrateur")) {
-                    u.setRole("a:1:{i:0;s:10:\"ROLE_ADMIN\";}");
+                    u.setRoles("a:1:{i:0;s:10:\"ROLE_ADMIN\";}");
                 }
                 if (role.getValue().equals("Utilisateur")) {
-                    u.setRole("a:0:{}");
+                    u.setRoles("a:0:{}");
                 }
                 if (role.getValue().equals("Entreprise")) {
-                    u.setRole("a:1:{i:0;s:10:\"ROLE_ENTREPRISE\";}");
+                    u.setRoles("a:1:{i:0;s:10:\"ROLE_ENTREPRISE\";}");
                 }
                 if (role.getValue().equals("Argiculteur")) {
-                    u.setRole("a:1:{i:0;s:10:\"ROLE_AGRICULTEUR\";}");
+                    u.setRoles("a:1:{i:0;s:10:\"ROLE_AGRICULTEUR\";}");
                 }
                 if (role.getValue().equals("Jardinier")) {
-                    u.setRole("a:1:{i:0;s:10:\"ROLE_JARDINIER\";}");
+                    u.setRoles("a:1:{i:0;s:10:\"ROLE_JARDINIER\";}");
                 }
                 cu.ajouterUser(u);
 
@@ -154,7 +159,7 @@ public class RegisterController implements Initializable {
                 Optional<ButtonType> result2 = alert2.showAndWait();
                 if (result2.get() == ButtonType.OK) {
 
-                    Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
                     Scene scene = new Scene(root);
                     Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     app_stage.setScene(scene);

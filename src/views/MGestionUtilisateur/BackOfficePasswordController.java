@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MGestionUtilisateur;
 
-import Crud.CrudUser;
-import Entity.User;
+import crud.MGestionUtilisateurs.CrudUser;
+import entities.MGestionUtilisateur.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,6 +26,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import techniques.BCryptPasswordEncoder;
 
 /**
  * FXML Controller class
@@ -63,7 +64,7 @@ public class BackOfficePasswordController implements Initializable {
     @FXML
     private void deco(MouseEvent event) throws IOException, SQLException {
         LoginController.us = null;
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -72,6 +73,8 @@ public class BackOfficePasswordController implements Initializable {
 
     @FXML
     private void changer(ActionEvent event) throws IOException, SQLException {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         if (!(pass.getText().equals(confpass.getText()))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
@@ -84,15 +87,14 @@ public class BackOfficePasswordController implements Initializable {
             alert.setHeaderText("Erreur");
             alert.setContentText("Veuillez saisir un mot de passe valide");
             Optional<ButtonType> result = alert.showAndWait();
-        } 
-//        else if (!(passactuel.getText().equals(user.getPassword()))) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Erreur de Saisie");
-//            alert.setHeaderText("Erreur");
-//            alert.setContentText("Mot de passe incorrect");
-//            Optional<ButtonType> result = alert.showAndWait();
-//        } 
-        else if ((passactuel.getText().equals(""))) {
+
+        } else if (!(passwordEncoder.matches(passactuel.getText(), user.getPassword()))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de Saisie");
+            alert.setHeaderText("Erreur");
+            alert.setContentText("Mot de passe incorrect");
+            Optional<ButtonType> result = alert.showAndWait();
+        } else if ((passactuel.getText().equals(""))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
@@ -108,10 +110,11 @@ public class BackOfficePasswordController implements Initializable {
                 CrudUser cu = new CrudUser();
                 System.out.println("Mot de passe modifié");
                 User u = new User();
-                u.setPassword(pass.getText());
+                String hashedPassword = passwordEncoder.encode(confpass.getText());
+                u.setPassword(hashedPassword);
+                user.setPassword(hashedPassword);
                 cu.changerMdp(u, id);
-
-                Parent root = FXMLLoader.load(getClass().getResource("BackOfficeProfile.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
                 Scene scene = new Scene(root);
                 Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 app_stage.setScene(scene);
@@ -123,7 +126,7 @@ public class BackOfficePasswordController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(getClass().getResource("BackOfficeProfile.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);

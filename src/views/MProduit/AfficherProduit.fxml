@@ -17,10 +17,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #2b2a2a;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AfficherProduitController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MProduit.AfficherProduitController">
    <children>
-      <Button fx:id="ajoutproduit" layoutX="306.0" layoutY="441.0" mnemonicParsing="false" onAction="#ajoutproduit" text="Ajouter Produit" />
-      <Button fx:id="retour" layoutX="28.0" layoutY="441.0" mnemonicParsing="false" onAction="#retour" prefHeight="25.0" prefWidth="98.0" text="Retour" />
+      <Button fx:id="ajoutproduit" layoutX="327.0" layoutY="441.0" mnemonicParsing="false" onAction="#ajoutproduit" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: #1E90FF;" text="Ajouter" textFill="WHITE" />
+      <Button fx:id="retour" layoutX="28.0" layoutY="441.0" mnemonicParsing="false" onAction="#retour" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: #87CEFA;" text="Retour" textFill="WHITE" />
       <VBox prefHeight="61.0" prefWidth="184.0" style="-fx-background-color: #2b2a2a;">
          <children>
             <HBox prefHeight="61.0" prefWidth="184.0" style="-fx-background-color: #1E90FF;">
@@ -55,7 +55,7 @@
             <Label fx:id="idE" layoutX="61.0" layoutY="22.0" textFill="LIGHTSKYBLUE" />
          </children>
       </AnchorPane>
-      <TableView fx:id="tableview" layoutX="26.0" layoutY="177.0" prefHeight="229.0" prefWidth="407.0">
+      <TableView fx:id="tableview" layoutX="26.0" layoutY="177.0" onMouseClicked="#clikedtableview" prefHeight="229.0" prefWidth="407.0">
         <columns>
           <TableColumn fx:id="id_prod" prefWidth="41.0" text="Id" />
           <TableColumn fx:id="nom_prod" prefWidth="70.0" text="Nom" />
@@ -69,12 +69,12 @@
          <children>
             <TextField fx:id="nom" layoutX="57.0" layoutY="30.0" promptText="Nom" />
             <ComboBox fx:id="type" layoutX="56.0" layoutY="61.0" prefWidth="150.0" promptText="Categorie" />
-            <Button fx:id="image1" layoutX="58.0" layoutY="163.0" mnemonicParsing="false" onAction="#image1" prefHeight="25.0" prefWidth="150.0" text="Choisir une image" />
-            <Button fx:id="image2" layoutX="57.0" layoutY="199.0" mnemonicParsing="false" onAction="#image2" prefHeight="25.0" prefWidth="150.0" text="Choisir une image" />
-            <Button fx:id="image3" layoutX="57.0" layoutY="234.0" mnemonicParsing="false" onAction="#image3" prefHeight="25.0" prefWidth="148.0" text="Choisir une image" />
+            <Button fx:id="image1" layoutX="58.0" layoutY="163.0" mnemonicParsing="false" onAction="#image1" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1E90FF;" text="Choisir une image" textFill="WHITE" />
+            <Button fx:id="image2" layoutX="57.0" layoutY="199.0" mnemonicParsing="false" onAction="#image2" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1E90FF;" text="Choisir une image" textFill="WHITE" />
+            <Button fx:id="image3" layoutX="57.0" layoutY="234.0" mnemonicParsing="false" onAction="#image3" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: #1E90FF;" text="Choisir une image" textFill="WHITE" />
             <TextField fx:id="prix" layoutX="57.0" layoutY="96.0" prefHeight="25.0" prefWidth="150.0" promptText="Prix" />
             <TextField fx:id="quant" layoutX="58.0" layoutY="128.0" promptText="Quantite" />
-            <BorderPane layoutX="256.0" layoutY="157.0" prefHeight="110.0" prefWidth="150.0">
+            <BorderPane layoutX="233.0" layoutY="157.0" prefHeight="110.0" prefWidth="150.0">
                <center>
                   <ImageView fx:id="imageviewer1" fitHeight="110.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                      <viewport>
@@ -86,7 +86,7 @@
                   </ImageView>
                </center>
             </BorderPane>
-            <BorderPane layoutX="432.0" layoutY="169.0" prefHeight="110.0" prefWidth="150.0">
+            <BorderPane layoutX="425.0" layoutY="157.0" prefHeight="110.0" prefWidth="150.0">
                <center>
                   <ImageView fx:id="imageviewer3" fitHeight="110.0" fitWidth="184.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                      <viewport>
@@ -95,7 +95,7 @@
                   </ImageView>
                </center>
             </BorderPane>
-            <BorderPane layoutX="447.0" layoutY="19.0" prefHeight="110.0" prefWidth="150.0">
+            <BorderPane layoutX="433.0" layoutY="21.0" prefHeight="110.0" prefWidth="150.0">
                <center>
                   <ImageView fx:id="imageviewer2" fitHeight="110.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                      <viewport>
@@ -107,12 +107,12 @@
             <TextArea fx:id="description" layoutX="232.0" layoutY="30.0" prefHeight="92.0" prefWidth="149.0" promptText="Description" />
          </children>
       </AnchorPane>
-      <Button fx:id="modifier" layoutX="446.0" layoutY="441.0" mnemonicParsing="false" onAction="#modifier" prefHeight="25.0" prefWidth="98.0" text="Modifier" />
-      <Button fx:id="supprimer" layoutX="963.0" layoutY="441.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="98.0" text="Supprimer" />
+      <Button fx:id="modifier" layoutX="446.0" layoutY="441.0" mnemonicParsing="false" onAction="#modifier" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: #1E90FF;" text="Modifier" textFill="WHITE" />
+      <Button fx:id="supprimer" layoutX="956.0" layoutY="441.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: #87CEFA;" text="Supprimer" textFill="WHITE" />
       <TextField fx:id="rech" layoutX="256.0" layoutY="114.0" prefHeight="25.0" prefWidth="177.0" promptText="Recherche" />
       <ComboBox fx:id="affcat" layoutX="28.0" layoutY="114.0" onAction="#getvalcombobox" prefHeight="25.0" prefWidth="177.0" promptText="Categorie" />
-      <Label fx:id="cheminimage1" layoutX="191.0" layoutY="79.0" textFill="#2b2a2a" />
-      <Label fx:id="cheminimage2" layoutX="201.0" layoutY="89.0" textFill="#2b2a2a" />
-      <Label fx:id="cheminimage3" layoutX="201.0" layoutY="89.0" textFill="#2b2a2a" />
+      <Label fx:id="cheminimage1" layoutX="191.0" layoutY="79.0" textFill="#ace3ea" />
+      <Label fx:id="cheminimage2" layoutX="201.0" layoutY="89.0" textFill="#ace3ea" />
+      <Label fx:id="cheminimage3" layoutX="201.0" layoutY="89.0" textFill="#ace3ea" />
    </children>
 </AnchorPane>

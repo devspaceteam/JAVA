@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MGestionUtilisateur;
 
-import Crud.CrudUser;
-import Entity.User;
+import crud.MGestionUtilisateurs.CrudUser;
+import entities.MGestionUtilisateur.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,6 +29,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import techniques.AutoJob;
+import techniques.DateConverter;
+import techniques.Notif;
 
 /**
  * FXML Controller class
@@ -57,67 +60,62 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
     @FXML
     private void authentification(ActionEvent event) throws IOException, SQLException {
         String e, m;
+
         e = username.getText();
         m = password.getText();
         User ad = new User();
 
         ad = sb.testauthentification(e, m);
         if (ad != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Succés");
-            alert.setHeaderText("Succés");
-            alert.setContentText("Bienvenue " + username.getText());
-            Optional<ButtonType> result = alert.showAndWait();
-            us = ad;
-            try {
-                
-                
-            } catch (IllegalStateException ex) {
-                System.out.println(ex);
+            if (ad.getEnabled() == 1) {
+                new Notif("Authentification", "Bienvenue chere "+ad.getUsername(), "windows");
+                us = ad;
+                sb.updateLastLogin(ad.getId());
+                ad.setLast_login(DateConverter.Date_Now_As_Date());
+                //AutoJob.Start();
+                if (ad.getRoles().contains("ROLE_ADMIN")) {
 
-            } catch (NullPointerException ex) {
-                System.out.println(ex);
+                    Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeAcceuil.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    app_stage.setScene(scene);
+                    app_stage.show();
+                }
+                if (ad.getRoles().equals("a:0:{}")) {
+                    Parent root = FXMLLoader.load(getClass().getResource("/views/HomeFrontEnd.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    app_stage.setScene(scene);
+                    app_stage.show();
+                }
+                if (ad.getRoles().contains("ROLE_ENTREPRISE") || ad.getRoles().contains("ROLE_AGRICULTEUR") || ad.getRoles().contains("ROLE_JARDINIER")) {
+
+                    Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeOther.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    app_stage.setScene(scene);
+                    app_stage.show();
+                }
+            }else
+            {
+                int nbd=0;
+                if(ad.getNb_ban()==1)nbd=7-DateConverter.DefferenceBetweenTowDatePerDays(DateConverter.Date_Now_As_Date(), ad.getLast_login());
+                if(ad.getNb_ban()==2)nbd=20-DateConverter.DefferenceBetweenTowDatePerDays(DateConverter.Date_Now_As_Date(), ad.getLast_login());
+                if(ad.getNb_ban()==3)nbd=30-DateConverter.DefferenceBetweenTowDatePerDays(DateConverter.Date_Now_As_Date(), ad.getLast_login());
+                
+                Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                alert2.setTitle("Erreur");
+                alert2.setHeaderText("bannir");
+                alert2.setContentText("Vous ete banni "+ad.getNb_ban()+" fois !!!! \n"
+                    + " attent "+nbd+" jour ");
+                Optional<ButtonType> result2 = alert2.showAndWait();
             }
-            
-            if (ad.getRoles().contains("ROLE_ADMIN")) {
-                    Parent root = FXMLLoader.load(getClass().getResource("BackOfficeAcceuil.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    app_stage.setScene(scene);
-                    app_stage.show();
-                } if (ad.getRoles().equals("a:0:{}")) {
-                    Parent root = FXMLLoader.load(getClass().getResource("FrontOfficeAcceuil.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    app_stage.setScene(scene);
-                    app_stage.show();
-                } if(ad.getRoles().contains("ROLE_ENTREPRISE")) {
-                    Parent root = FXMLLoader.load(getClass().getResource("BackOfficeOther.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    app_stage.setScene(scene);
-                    app_stage.show();
-                }
-                if(ad.getRoles().contains("ROLE_AGRICULTEUR")) {
-                    Parent root = FXMLLoader.load(getClass().getResource("BackOfficeOther.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    app_stage.setScene(scene);
-                    app_stage.show();
-                }
-                if(ad.getRoles().contains("ROLE_JARDINIER")) {
-                    Parent root = FXMLLoader.load(getClass().getResource("BackOfficeOther.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    app_stage.setScene(scene);
-                    app_stage.show();
-                }
         } else {
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
             alert2.setTitle("Erreur");
@@ -129,7 +127,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void inscription(ActionEvent event) throws SQLException, IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Register.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Register.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -138,7 +136,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void reset(MouseEvent event) throws SQLException, IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Reset.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Reset.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);

@@ -8,6 +8,7 @@ package views.MGestionUtilisateur;
 import crud.MGestionUtilisateurs.CrudUser;
 import entities.MGestionUtilisateur.Listuser;
 import entities.MGestionUtilisateur.User;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -27,6 +30,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import views.MService.Reclamation.BE.ProfileRController;
 
 /**
  * FXML Controller class
@@ -35,6 +41,8 @@ import javafx.scene.layout.Background;
  */
 public class ListeUtilisateurController implements Initializable {
 
+    public static Pane ctp;
+    public  Pane centerpane;
     @FXML
     private Button userbtn;
     @FXML
@@ -53,7 +61,7 @@ public class ListeUtilisateurController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-       
+       centerpane=ctp;
         alluser();
     
         
@@ -115,20 +123,24 @@ public class ListeUtilisateurController implements Initializable {
             hh = new Label(""+x.getEmail());
             Rx.setEmail(hh);
             
-            hh = new Label("" +x.getNb_ban()+" ban ");
+            hh = new Label(" " +x.getNb_ban()+" ban ");
             if(x.getNb_ban()==0)hh.setStyle("-fx-background-color: #19D22F;");
             if(x.getNb_ban()==1)hh.setStyle("-fx-background-color: #FAA21B;");
             if(x.getNb_ban()==2)hh.setStyle("-fx-background-color: #D10606;");
+            hh.setTextFill(Color.web("#ffffff"));
             Rx.setStatus(hh);
             
             hh = new Label(""+x.getLast_login());
             Rx.setDernierAcces(hh);
             
-            hh = new Label("Ouvrire");
-            hh.setOnMouseClicked(new EventHandler<MouseEvent>() {
+             hh = new Label("Ouvrire");
+            Rx.setOpen(hh);
+            Rx.getOpen().setTextFill(Color.web("#322e91"));
+            Rx.getOpen().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                        
+                        ProfileRController.u=x;
+                        LooadUI("profileR");
                 }
             });
             Rx.setOpen(hh);
@@ -225,13 +237,18 @@ public class ListeUtilisateurController implements Initializable {
             Rx.setDernierAcces(hh);
             
             hh = new Label("Ouvrire");
-            hh.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            Rx.setOpen(hh);
+            Rx.getOpen().setTextFill(Color.web("#322e91"));
+            Rx.getOpen().setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                        
+                        ProfileRController.u=x;
+                        LooadUI("profileR");
                 }
             });
-            Rx.setOpen(hh);
+            
+            
+            
         RFBO.add(Rx);
         }  
         
@@ -271,5 +288,14 @@ public class ListeUtilisateurController implements Initializable {
     private void banneaction(ActionEvent event) {
         allbanned();
     }
-    
+    private  void LooadUI(String ui)
+    {   
+        centerpane.getChildren().clear();
+        Parent root=null;
+        try {
+            root=FXMLLoader.load(getClass().getResource("/views/MService/Reclamation/BE/"+ui+".fxml"));
+            
+        } catch (IOException ex) {System.err.println(ex.getMessage());     }
+        centerpane.getChildren().add(root); 
+    }
 }

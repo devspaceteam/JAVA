@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MGestionUtilisateur;
 
-import Crud.CrudUser;
-import Entity.User;
+import crud.MGestionUtilisateurs.CrudUser;
+import entities.MGestionUtilisateur.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import techniques.BCryptPasswordEncoder;
 
 /**
  * FXML Controller class
@@ -64,7 +65,7 @@ public class BackOfficeAdresseMailController implements Initializable {
     @FXML
     private void deco(MouseEvent event) throws IOException, SQLException {
         LoginController.us = null;
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -74,6 +75,7 @@ public class BackOfficeAdresseMailController implements Initializable {
     @FXML
     private void changer(ActionEvent event) throws IOException, SQLException {
         CrudUser cu = new CrudUser();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         User u = new User();
         u.setEmail(nouvemail.getText());
@@ -83,7 +85,7 @@ public class BackOfficeAdresseMailController implements Initializable {
             alert.setHeaderText("Erreur");
             alert.setContentText("La nouvelle adresse mail et l'adresse mail de confirmation ne sont pas les memes");
             Optional<ButtonType> result = alert.showAndWait();
-        } else if (!(nouvemail.getText().matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+")) ) {
+        } else if (!(nouvemail.getText().matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+"))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
@@ -95,16 +97,14 @@ public class BackOfficeAdresseMailController implements Initializable {
             alert.setHeaderText("Erreur");
             alert.setContentText("Veuillez saisir une adresse mail");
             Optional<ButtonType> result = alert.showAndWait();
-        } 
-        else if (!(passactuel.getText().equals(user.getPassword()))) {
-            System.out.println("pass :"+user.getPassword());
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Erreur de Saisie");
-                    alert.setHeaderText("Erreur");
-                    alert.setContentText("Mot de passe incorrect");
-                    Optional<ButtonType> result = alert.showAndWait();
-                } 
-        else if (passactuel.getText().equals("")) {
+        } else if (!(passwordEncoder.matches(passactuel.getText(), user.getPassword()))) {
+            System.out.println("pass :" + user.getPassword());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de Saisie");
+            alert.setHeaderText("Erreur");
+            alert.setContentText("Mot de passe incorrect");
+            Optional<ButtonType> result = alert.showAndWait();
+        } else if (passactuel.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
@@ -125,8 +125,9 @@ public class BackOfficeAdresseMailController implements Initializable {
             if (result.get() == ButtonType.OK) {
 
                 cu.changerMail(u, id);
+                user.setEmail(nouvemail.getText());
                 System.out.println("Adresse mail modifié");
-                Parent root = FXMLLoader.load(getClass().getResource("BackOfficeProfile.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
                 Scene scene = new Scene(root);
                 Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 app_stage.setScene(scene);
@@ -138,7 +139,7 @@ public class BackOfficeAdresseMailController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(getClass().getResource("BackOfficeProfile.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);

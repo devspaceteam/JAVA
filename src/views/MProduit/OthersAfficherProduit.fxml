@@ -17,10 +17,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #2b2a2a;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.OthersAfficherProduitController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MProduit.OthersAfficherProduitController">
    <children>
-      <Button fx:id="ajoutproduit" layoutX="306.0" layoutY="441.0" mnemonicParsing="false" onAction="#ajoutproduit" text="Ajouter Produit" />
-      <Button fx:id="retour" layoutX="28.0" layoutY="441.0" mnemonicParsing="false" onAction="#retour" prefHeight="25.0" prefWidth="98.0" text="Retour" />
+      <Button fx:id="ajoutproduit" layoutX="314.0" layoutY="434.0" mnemonicParsing="false" onAction="#ajoutproduit" prefHeight="32.0" prefWidth="119.0" style="-fx-background-color: #1E90FF;" text="Ajouter Produit" textFill="WHITE" />
+      <Button fx:id="retour" layoutX="28.0" layoutY="434.0" mnemonicParsing="false" onAction="#retour" prefHeight="32.0" prefWidth="119.0" style="-fx-background-color: #87CEFA;" text="Retour" textFill="WHITE" />
       <VBox prefHeight="61.0" prefWidth="184.0" style="-fx-background-color: #2b2a2a;">
          <children>
             <HBox prefHeight="61.0" prefWidth="184.0" style="-fx-background-color: #1E90FF;">
@@ -68,9 +68,9 @@
          <children>
             <TextField fx:id="nom" layoutX="57.0" layoutY="30.0" promptText="Nom" />
             <ComboBox fx:id="type" layoutX="56.0" layoutY="61.0" prefWidth="150.0" promptText="Categorie" />
-            <Button fx:id="image1" layoutX="58.0" layoutY="163.0" mnemonicParsing="false" onAction="#image1" prefHeight="25.0" prefWidth="150.0" text="Choisir une image" />
-            <Button fx:id="image2" layoutX="57.0" layoutY="199.0" mnemonicParsing="false" onAction="#image2" prefHeight="25.0" prefWidth="150.0" text="Choisir une image" />
-            <Button fx:id="image3" layoutX="57.0" layoutY="234.0" mnemonicParsing="false" onAction="#image3" prefHeight="25.0" prefWidth="148.0" text="Choisir une image" />
+            <Button fx:id="image1" layoutX="58.0" layoutY="163.0" mnemonicParsing="false" onAction="#image1" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1E90FF;" text="Choisir une image" textFill="WHITE" />
+            <Button fx:id="image2" layoutX="57.0" layoutY="199.0" mnemonicParsing="false" onAction="#image2" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1E90FF;" text="Choisir une image" textFill="WHITE" />
+            <Button fx:id="image3" layoutX="57.0" layoutY="234.0" mnemonicParsing="false" onAction="#image3" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: #1E90FF;" text="Choisir une image" textFill="WHITE" />
             <TextField fx:id="prix" layoutX="57.0" layoutY="96.0" prefHeight="25.0" prefWidth="150.0" promptText="Prix" />
             <TextField fx:id="quant" layoutX="58.0" layoutY="128.0" promptText="Quantite" />
             <BorderPane layoutX="256.0" layoutY="157.0" prefHeight="110.0" prefWidth="150.0">
@@ -106,11 +106,11 @@
             <TextArea fx:id="description" layoutX="232.0" layoutY="30.0" prefHeight="92.0" prefWidth="149.0" promptText="Description" />
          </children>
       </AnchorPane>
-      <Button fx:id="modifier" layoutX="446.0" layoutY="441.0" mnemonicParsing="false" onAction="#modifier" prefHeight="25.0" prefWidth="98.0" text="Modifier" />
-      <Button fx:id="supprimer" layoutX="963.0" layoutY="441.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="98.0" text="Supprimer" />
+      <Button fx:id="modifier" layoutX="446.0" layoutY="434.0" mnemonicParsing="false" onAction="#modifier" prefHeight="32.0" prefWidth="119.0" style="-fx-background-color: #1E90FF;" text="Modifier" textFill="WHITE" />
+      <Button fx:id="supprimer" layoutX="942.0" layoutY="434.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="32.0" prefWidth="119.0" style="-fx-background-color: #87CEFA;" text="Supprimer" textFill="WHITE" />
       <TextField fx:id="rech" layoutX="256.0" layoutY="114.0" prefHeight="25.0" prefWidth="177.0" promptText="Recherche" />
-      <Label fx:id="cheminimage3" layoutX="37.0" layoutY="86.0" textFill="#2b2a2a" />
-      <Label fx:id="cheminimage1" layoutX="47.0" layoutY="96.0" textFill="#2b2a2a" />
-      <Label fx:id="cheminimage2" layoutX="47.0" layoutY="96.0" textFill="#2b2a2a" />
+      <Label fx:id="cheminimage3" layoutX="37.0" layoutY="86.0" textFill="#ace3ea" />
+      <Label fx:id="cheminimage1" layoutX="47.0" layoutY="96.0" textFill="#ace3ea" />
+      <Label fx:id="cheminimage2" layoutX="47.0" layoutY="96.0" textFill="#ace3ea" />
    </children>
 </AnchorPane>

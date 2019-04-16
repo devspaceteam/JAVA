@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MProduit;
 
-import Crud.CrudCategorie;
-import Crud.CrudProduit;
-import Entity.Categorie;
-import Entity.Produit;
-import Entity.User;
+import crud.MProduit.CrudCategorie;
+import crud.MProduit.CrudProduit;
+import entities.MGestionUtilisateur.User;
+import entities.MProduit.Categorie;
+import entities.MProduit.Produit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,6 +53,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.controlsfx.control.textfield.TextFields;
+import views.MGestionUtilisateur.LoginController;
 
 /**
  * FXML Controller class
@@ -138,7 +139,8 @@ public class AfficherProduitController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Crud.CrudCategorie categorieType = new CrudCategorie();
+        username.setText("Bienvenue " + LoginController.us.getUsername().toUpperCase());
+        CrudCategorie categorieType = new CrudCategorie();
         List<Categorie> list = categorieType.AfficherCategorie();
         for (Categorie c : list) {
             type.getItems().add(c.getNom());
@@ -148,7 +150,7 @@ public class AfficherProduitController implements Initializable {
 
         loadDataFromDatabase("Arbre");
         setsCllTable();
-        setcellValue();
+//        setcellValue();
         CrudProduit cp = new CrudProduit();
         List<Produit> cat = cp.AfficherCategorie();
         List<String> listS = new ArrayList<>();
@@ -161,7 +163,7 @@ public class AfficherProduitController implements Initializable {
 
     @FXML
     private void ajoutproduit(ActionEvent event) throws SQLException, IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("AjouterProduit.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MProduit/AjouterProduit.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -171,7 +173,7 @@ public class AfficherProduitController implements Initializable {
     @FXML
     private void retour(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("BackOfficeAcceuil.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeAcceuil.fxml"));
             Scene scene = new Scene(root);
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(scene);
@@ -184,7 +186,7 @@ public class AfficherProduitController implements Initializable {
     @FXML
     private void deco(MouseEvent event) throws IOException, SQLException {
         LoginController.us = null;
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -194,13 +196,13 @@ public class AfficherProduitController implements Initializable {
 
     @FXML
     private void image1(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc1.setInitialDirectory(new File("C:\\"));
         selectedFile1 = fc1.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile1, dest);
 
-        File newFile1 = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\" + selectedFile1.getName());
+        File newFile1 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile1.getName());
 
         FileInputStream input1 = new FileInputStream(newFile1);
         Image image1 = new Image(input1);
@@ -210,13 +212,13 @@ public class AfficherProduitController implements Initializable {
 
     @FXML
     private void image2(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc2.setInitialDirectory(new File("C:\\"));
         selectedFile2 = fc2.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile2, dest);
 
-        File newFile2 = new File("C:\\wamp\\www\\DevSpace\\web\\devis\\" + selectedFile2.getName());
+        File newFile2 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile2.getName());
 
         FileInputStream input2 = new FileInputStream(newFile2);
         Image image2 = new Image(input2);
@@ -226,13 +228,13 @@ public class AfficherProduitController implements Initializable {
 
     @FXML
     private void image3(ActionEvent event) throws FileNotFoundException, IOException {
-        File dest = new File("C:\\wamp64\\www\\DevSpace\\web\\devis\\");
+        File dest = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\");
 
         fc3.setInitialDirectory(new File("C:\\"));
         selectedFile3 = fc3.showOpenDialog(null);
         FileUtils.copyFileToDirectory(selectedFile3, dest);
 
-        File newFile3 = new File("C:\\wamp64\\www\\DevSpace\\web\\devis\\" + selectedFile3.getName());
+        File newFile3 = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\" + selectedFile3.getName());
 
         FileInputStream input3 = new FileInputStream(newFile3);
         Image image3 = new Image(input3);
@@ -314,12 +316,12 @@ public class AfficherProduitController implements Initializable {
                 System.out.println("Produit modifié");
                 Produit r = new Produit();
 
-                System.out.println(""+retId(type.getValue()));
+                System.out.println("" + retId(type.getValue()));
                 r.setId_produit(Integer.valueOf(idE.getText()));
                 //r.setId_categorie(retId(type.getValue()));
-                
+
                 int idCategorie = 0;
-                Crud.CrudCategorie categorieType = new CrudCategorie();
+                CrudCategorie categorieType = new CrudCategorie();
                 List<Categorie> list = categorieType.AfficherCategorie();
                 for (Categorie c : list) {
                     if (c.getNom().equals(type.getValue())) {
@@ -327,7 +329,7 @@ public class AfficherProduitController implements Initializable {
                     }
                 }
                 r.setId_categorie(idCategorie);
-                
+
                 r.setId_user(us.getId());
                 r.setPrix(pri);
                 r.setQuantite(quan);
@@ -340,15 +342,15 @@ public class AfficherProduitController implements Initializable {
                 services.ModifierProduit(r, idr);
                 nom.setText("");
                 description.setText("");
-                imageviewer1.setVisible(false);
-                imageviewer3.setVisible(false);
-                imageviewer2.setVisible(false);
                 type.setValue("");
                 prix.setText("");
                 quant.setText("");
                 idE.setText("");
                 data.clear();
-//                    setsCllTable();
+                imageviewer1.setImage(null);
+                imageviewer2.setImage(null);
+                imageviewer3.setImage(null);
+//                    setcellValue();
 //                data.clear();
                 loadDataFromDatabase("Arbre");
                 System.out.println("ff");
@@ -377,9 +379,9 @@ public class AfficherProduitController implements Initializable {
                 cc.SupprimerProduit(Integer.valueOf(id));
                 nom.setText("");
                 description.setText("");
-                imageviewer1.setVisible(false);
-                imageviewer3.setVisible(false);
-                imageviewer2.setVisible(false);
+                imageviewer1.setImage(null);
+                imageviewer2.setImage(null);
+                imageviewer3.setImage(null);
                 type.setValue("");
                 prix.setText("");
                 quant.setText("");
@@ -413,14 +415,15 @@ public class AfficherProduitController implements Initializable {
         });
     }
 
-    private void setcellValue() {
+  /*
+      private void setcellValue() {
         tableview.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
                 Produit p = tableview.getItems().get(tableview.getSelectionModel().getSelectedIndex());
                 idE.setText(String.valueOf(p.getId_produit()));
                 nom.setText(p.getNom());
-                Crud.CrudCategorie categorieType = new CrudCategorie();
+                CrudCategorie categorieType = new CrudCategorie();
                 List<Categorie> list = categorieType.AfficherCategorie();
                 for (Categorie c : list) {
                     if (c.getId_categorie() == p.getId_categorie()) {
@@ -433,10 +436,16 @@ public class AfficherProduitController implements Initializable {
                 cheminimage1.setText(p.getDevis_name1());
                 cheminimage2.setText(p.getDevis_name2());
                 cheminimage3.setText(p.getDevis_name3());
+                
+                Image1();
+                Image2();
+                Image3();
             }
         });
 
     }
+    
+    */
 
     @FXML
     void getvalcombobox() {
@@ -503,7 +512,7 @@ public class AfficherProduitController implements Initializable {
 
     public int retId(String a) {
         int n = 0;
-        Crud.CrudCategorie categorieType = new CrudCategorie();
+        CrudCategorie categorieType = new CrudCategorie();
         List<Categorie> list = categorieType.AfficherCategorie();
         for (Categorie c : list) {
             a.equals(c.getNom());
@@ -511,16 +520,61 @@ public class AfficherProduitController implements Initializable {
         }
         return n;
     }
-    
-    public String retNom(int a){
-                String n=null;
-        Crud.CrudCategorie categorieType = new CrudCategorie();
+
+    public String retNom(int a) {
+        String n = null;
+        CrudCategorie categorieType = new CrudCategorie();
         List<Categorie> list = categorieType.AfficherCategorie();
         for (Categorie c : list) {
-            a=c.getId_categorie();
-            n=c.getNom();
+            a = c.getId_categorie();
+            n = c.getNom();
         }
         return n;
     }
 
+    private void Image1() {
+
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", cheminimage1.getText());
+        Image image = new Image(file.toURI().toString());
+        imageviewer1.setImage(image);
+
+    }
+    private void Image2() {
+
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", cheminimage2.getText());
+        Image image = new Image(file.toURI().toString());
+        imageviewer2.setImage(image);
+
+    }
+    private void Image3() {
+
+        File file = new File("G:\\xamppp\\htdocs\\PIDEV\\WEB\\PIDEV\\web\\devis\\", cheminimage3.getText());
+        Image image = new Image(file.toURI().toString());
+        imageviewer3.setImage(image);
+
+    }   
+
+    @FXML
+    private void clikedtableview(MouseEvent event) {
+        Produit p = tableview.getItems().get(tableview.getSelectionModel().getSelectedIndex());
+                idE.setText(String.valueOf(p.getId_produit()));
+                nom.setText(p.getNom());
+                CrudCategorie categorieType = new CrudCategorie();
+                List<Categorie> list = categorieType.AfficherCategorie();
+                for (Categorie c : list) {
+                    if (c.getId_categorie() == p.getId_categorie()) {
+                        type.setValue(c.getNom());
+                    }
+                }
+                description.setText(p.getDescription());
+                prix.setText(String.valueOf(p.getPrix()));
+                quant.setText(String.valueOf(p.getQuantite()));
+                cheminimage1.setText(p.getDevis_name1());
+                cheminimage2.setText(p.getDevis_name2());
+                cheminimage3.setText(p.getDevis_name3());
+                
+                Image1();
+                Image2();
+                Image3();
+    }
 }

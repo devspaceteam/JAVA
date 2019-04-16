@@ -1,12 +1,12 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
 https://www.google.com/settings/security/lesssecureapps
  */
-package View;
+package views.MGestionUtilisateur;
 
-import Crud.CrudUser;
+import crud.MGestionUtilisateurs.CrudUser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -68,10 +68,10 @@ public class ResetController implements Initializable {
                 s = sa.testpasswordauthentification(email.getText());
             }
             String host = "smtp.gmail.com";
-            String user = "mahdi.lazzem@gmail.com";
-            String pass = "azerty";
+            String user = "E.NERSERY@gmail.com";
+            String pass = "DEVSPACE";
             String to = email.getText();
-            String from = "mahdi.lazzem@gmail.com";
+            String from = "E.NERSERY@gmail.com";
             String subject = "[E-Nursery] Ceci est votre nouveau mot de passe";
             String messageText = "Votre nouveau mot de passe est " + s;
             boolean sessionDebug = false;
@@ -83,7 +83,7 @@ public class ResetController implements Initializable {
             props.put("mail.smtp.port", "587");
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.required", "true");
-            props.put("mail.smtp.starttls.enable", "true");
+            //props.put("mail.smtp.starttls.enable", "true");
 
             java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             Session mailSession = Session.getDefaultInstance(props, null);
@@ -116,7 +116,7 @@ public class ResetController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) throws SQLException, IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/Login.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);

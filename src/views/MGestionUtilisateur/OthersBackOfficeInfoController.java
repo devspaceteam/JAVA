@@ -5,10 +5,9 @@
  */
 package views.MGestionUtilisateur;
 
+
 import crud.MGestionUtilisateurs.CrudUser;
 import entities.MGestionUtilisateur.User;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -36,7 +35,7 @@ import javafx.stage.Stage;
  *
  * @author Lazzem
  */
-public class BackOfficeInfoController implements Initializable {
+public class OthersBackOfficeInfoController implements Initializable {
 
     @FXML
     private Text username;
@@ -71,6 +70,7 @@ public class BackOfficeInfoController implements Initializable {
         numtf.setText(String.valueOf(uss.getPhone_number()));
         jobtf.setText(uss.getJob());
         locationcb.setValue(uss.getLocation());
+                username.setText("Bienvenue "+LoginController.us.getUsername().toUpperCase());
     }
 
     @FXML
@@ -114,17 +114,16 @@ public class BackOfficeInfoController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
-            alert.setContentText("Veuillez saisir votre numero");
+            alert.setContentText("Veuillez saisir votre numero valide ! exemple : 21212121");
             Optional<ButtonType> result = alert.showAndWait();
         } 
-        else if (!(estUnEntier(numtf.getText())) )  {
+        else if (!(estUnEntier(numtf.getText()) ))  {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
-            alert.setContentText("Veuillez saisir votre numero");
+            alert.setContentText("Veuillez saisir votre numero valide ! exemple : 21212121");
             Optional<ButtonType> result = alert.showAndWait();
-        } 
-        else {
+        }else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
             alert.setHeaderText("Modification");
@@ -145,7 +144,7 @@ public class BackOfficeInfoController implements Initializable {
                 uss.setAddress(adresstf.getText());
                 uss.setJob(jobtf.getText());
                 cu.changerInfo(u, id);
-                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/OthersBackOfficeProfile.fxml"));
                 Scene scene = new Scene(root);
                 Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 app_stage.setScene(scene);
@@ -156,7 +155,7 @@ public class BackOfficeInfoController implements Initializable {
 
     @FXML
     private void retour(ActionEvent event) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/OthersBackOfficeProfile.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
@@ -171,4 +170,5 @@ public class BackOfficeInfoController implements Initializable {
 
         return true;
     }
+
 }

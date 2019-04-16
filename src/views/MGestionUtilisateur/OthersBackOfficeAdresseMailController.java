@@ -7,8 +7,6 @@ package views.MGestionUtilisateur;
 
 import crud.MGestionUtilisateurs.CrudUser;
 import entities.MGestionUtilisateur.User;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -24,19 +22,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import techniques.BCryptPasswordEncoder;
 
 /**
  * FXML Controller class
  *
  * @author Lazzem
  */
-public class BackOfficeInfoController implements Initializable {
+public class OthersBackOfficeAdresseMailController implements Initializable {
 
     @FXML
     private Text username;
@@ -45,32 +43,23 @@ public class BackOfficeInfoController implements Initializable {
     @FXML
     private Button changer;
     @FXML
-    private TextField numtf;
+    private PasswordField passactuel;
     @FXML
-    private TextField adresstf;
+    private TextField nouvemail;
     @FXML
-    private TextField jobtf;
-    @FXML
-    private ComboBox<String> locationcb;
+    private TextField confemail;
     @FXML
     private Button retour;
-    @FXML
-    private TextArea descta;
 
     int id = LoginController.us.getId();
-    User uss = LoginController.us;
+    User user = LoginController.us;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        locationcb.getItems().addAll("Ariana", "Béja", "Ben Arous", "Bizerte", "Gabes", "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili", "La Manouba", "Le Kef", "Mahdia", "Médenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan");
-        adresstf.setText(uss.getAddress());
-        descta.setText(uss.getAbout());
-        numtf.setText(String.valueOf(uss.getPhone_number()));
-        jobtf.setText(uss.getJob());
-        locationcb.setValue(uss.getLocation());
+        username.setText("Bienvenue " + LoginController.us.getUsername().toUpperCase());
     }
 
     @FXML
@@ -81,94 +70,78 @@ public class BackOfficeInfoController implements Initializable {
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
         app_stage.show();
-
     }
 
     @FXML
     private void changer(ActionEvent event) throws IOException, SQLException {
-//        descta.setText(uss.getAbout());
-//        numtf.setText(String.valueOf(uss.getPhone_number()));
-//        locationcb.setValue(uss.getLocation());
-//        adresstf.setText(uss.getAddress());
-//        jobtf.setText(uss.getJob());
-
-        if ((descta.getText().equals(""))) {
+        CrudUser cu = new CrudUser();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        User u = new User();
+        u.setEmail(nouvemail.getText());
+        if (!(nouvemail.getText().equals(confemail.getText()))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
-            alert.setContentText("Veuillez saisir votre status");
+            alert.setContentText("La nouvelle adresse mail et l'adresse mail de confirmation ne sont pas les memes");
             Optional<ButtonType> result = alert.showAndWait();
-        } else if (jobtf.getText().equals("")) {
+        } else if (!(nouvemail.getText().matches("(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)*\\@(?:\\w|[\\-_])+(?:\\.(?:\\w|[\\-_])+)+"))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
-            alert.setContentText("Veuillez saisir votre occupation");
+            alert.setContentText("Veuillez saisir une adresse valide");
             Optional<ButtonType> result = alert.showAndWait();
-        } else if (adresstf.getText().equals("")) {
+        } else if (nouvemail.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
-            alert.setContentText("Veuillez saisir votre adresse");
+            alert.setContentText("Veuillez saisir une adresse mail");
             Optional<ButtonType> result = alert.showAndWait();
-        } else if ((numtf.getText().length()!=8) )  {
+        } else if (!(passwordEncoder.matches(passactuel.getText(), user.getPassword()))) {
+            System.out.println("pass :" + user.getPassword());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
-            alert.setContentText("Veuillez saisir votre numero");
+            alert.setContentText("Mot de passe incorrect");
             Optional<ButtonType> result = alert.showAndWait();
-        } 
-        else if (!(estUnEntier(numtf.getText())) )  {
+        } else if (passactuel.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de Saisie");
             alert.setHeaderText("Erreur");
-            alert.setContentText("Veuillez saisir votre numero");
+            alert.setContentText("Veuillez saisir votre mot de passe");
             Optional<ButtonType> result = alert.showAndWait();
-        } 
-        else {
+        } else if (cu.testMail(nouvemail.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de Saisie");
+            alert.setHeaderText("Erreur");
+            alert.setContentText("Adresse mail dejat utilisé");
+            Optional<ButtonType> result = alert.showAndWait();
+        } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
             alert.setHeaderText("Modification");
-            alert.setContentText("Vouler vous vraiment modifier vos informations ?");
+            alert.setContentText("Vouler vous vraiment modifier votre adresse mail ?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                CrudUser cu = new CrudUser();
-                System.out.println("Information modifié");
-                User u = new User();
-                u.setAbout(descta.getText());
-                u.setPhone_number(Integer.valueOf(numtf.getText()));
-                u.setLocation(locationcb.getValue());
-                u.setAddress(adresstf.getText());
-                u.setJob(jobtf.getText());
-                uss.setAbout(descta.getText());
-                uss.setPhone_number(Integer.valueOf(numtf.getText()));
-                uss.setLocation(locationcb.getValue());
-                uss.setAddress(adresstf.getText());
-                uss.setJob(jobtf.getText());
-                cu.changerInfo(u, id);
-                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
+
+                cu.changerMail(u, id);
+                System.out.println("Adresse mail modifié");
+                user.setEmail(nouvemail.getText());
+                Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/OthersBackOfficeProfile.fxml"));
                 Scene scene = new Scene(root);
                 Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 app_stage.setScene(scene);
                 app_stage.show();
+
             }
         }
     }
 
     @FXML
     private void retour(ActionEvent event) throws IOException, SQLException {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/BackOfficeProfile.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/MGestionUtilisateur/OthersBackOfficeProfile.fxml"));
         Scene scene = new Scene(root);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);
         app_stage.show();
-    }
-        public boolean estUnEntier(String x) {
-        try {
-            Integer.parseInt(x);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-        return true;
     }
 }

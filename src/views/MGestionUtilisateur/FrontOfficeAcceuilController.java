@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package views.MGestionUtilisateur;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -16,6 +19,9 @@ import javafx.fxml.Initializable;
  */
 public class FrontOfficeAcceuilController implements Initializable {
 
+    @FXML
+    private Button listeprod;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +29,9 @@ public class FrontOfficeAcceuilController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void listeprod(ActionEvent event) {
+    }
     
 }
