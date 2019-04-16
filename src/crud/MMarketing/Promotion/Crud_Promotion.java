@@ -318,5 +318,63 @@ public class Crud_Promotion {
      
      
 } 
+   
+   
+   public  int datte(String x)
+    {
+     
+        
+        int xx=0;
+  
+        try {
+        PreparedStatement ps;
+        String requete = "SELECT date_fin FROM `promotion` WHERE nom_promotion=?; ";
+               ps = MyConnection.getInstance().getCnx()
+                    .prepareStatement(requete);
+            ps.setString(1, x);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+               
+               
+                xx=rs.getInt(1);
+                
+            }                                    
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return xx;
+     
+     
+} 
+    public  int pourc(String x)
+    {
+     
+        
+        int xx=0;
+  
+        try {
+        PreparedStatement ps;
+        String requete = "SELECT pourcentage FROM `promotion` WHERE nom_promotion=?; ";
+               ps = MyConnection.getInstance().getCnx()
+                    .prepareStatement(requete);
+            ps.setString(1, x);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+               
+               
+                xx=rs.getInt(1);
+                
+            }                                    
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return xx;
+     
+     
+} 
 }
  

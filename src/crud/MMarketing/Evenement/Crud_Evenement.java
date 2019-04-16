@@ -75,6 +75,23 @@ public class Crud_Evenement {
             System.out.println(ex.getMessage());
         }
     }
+      public static void supprimerEvenement2( ) {
+        String requete3 = "DELETE FROM evenement WHERE "
+                + " (SELECT TIMESTAMPDIFF(DAY,NOW(),evenement.date_fin ) )=0";
+
+        try {
+            PreparedStatement pst = MyConnection.getInstance().getCnx()
+                    .prepareStatement(requete3);
+          //  pst.setString(1, x);
+
+            pst.executeUpdate();
+
+            System.out.println("Promotion Supprimer");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
 
     public List<Evenement> listerEvenement() {
           List<Evenement> myList=new ArrayList();
@@ -185,5 +202,30 @@ public  int esmproduit1(String x)
      
      
 } 
+
+    public int datte(String x) {
+        
+         int xx=0;
+  
+        try {
+        PreparedStatement ps;
+        String requete = "SELECT date_fin FROM `evenement` WHERE nom_evenement=?; ";
+               ps = MyConnection.getInstance().getCnx()
+                    .prepareStatement(requete);
+            ps.setString(1, x);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+               
+               
+                xx=rs.getInt(1);
+                
+            }                                    
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return xx;
+    }
   
 }
